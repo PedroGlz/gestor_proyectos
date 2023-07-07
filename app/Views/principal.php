@@ -228,7 +228,7 @@
                 <!-- BUSCADOR MENU LATERAL -->
                 <div class="form-inline mb-3">
                     <div class="input-group input-group-sm" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control form-control-sidebar bg-dark text-white" type="search" placeholder="Buscar" aria-label="Buscar">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw fa-xs"></i>
@@ -243,7 +243,7 @@
                 </div>
 
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" data-widget="treeview" role="menu"data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
