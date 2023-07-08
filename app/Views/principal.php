@@ -8,402 +8,347 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-    <!-- jsGrid -->
-    <link rel="stylesheet" href="plugins/jsgrid/jsgrid.min.css">
-    <link rel="stylesheet" href="plugins/jsgrid/jsgrid-theme.min.css">
-    
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">   
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 
-</head>
-<body class="hold-transition sidebar-mini layout-fixed">
-    
-    <div class="wrapper">
+    <style id="" media="all">
+        /* devanagari */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLDz8Z11lFc-K.woff2) format('woff2');
+        unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+        }
 
-        <!-- ANIMACION DE PRECARGA -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-        </div>
+        /* latin-ext */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2) format('woff2');
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
 
-        <!-- BARRA ENCABEZADO -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- ICONO PARA ESCONDER EL MENU LATERAL -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-            </ul>
+        /* latin */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
 
-            <!-- HERRAMIENATAS DEL HEADER -->
-            <ul class="navbar-nav ml-auto">
-                <!-- NAVBAR BUSCADOR -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                    <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block">
-                    <form class="form-inline">
-                        <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
-                            <i class="fas fa-search"></i>
-                            </button>
-                            <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                            <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        </div>
-                    </form>
-                    </div>
-                </li>
-                <!-- ICONO MENSAJES -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-comments"></i>
-                    <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                        <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                            Brad Diesel
-                            <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">Call me whenever you can...</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                        <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                            John Pierce
-                            <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">I got your message bro</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                        <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                            Nora Silvester
-                            <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">The subject goes here</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li>
-                <!-- ICONO NOTIFICACIONES -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
-                </li>
-                <!-- ICONO MAXIMIZAR PANTALLA -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
-                <!-- Cerrar sesion Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <!--<span class="badge badge-warning navbar-badge">15</span>-->
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">Sistema</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="/salir" class="nav-link dropdown-item">
-                            <i class="nav-icon fas fa-sign-out-alt"></i> Salir del sistema
-                        </a>
+        /* devanagari */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJbecmNE.woff2) format('woff2');
+        unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+        }
 
-                    </div>
-                </li>
+        /* latin-ext */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJnecmNE.woff2) format('woff2');
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
 
-                <!-- MAS OPCIONES -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        /* latin */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
 
-        <!--MENU LATERAL -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- DATOS DE LUSUARIO -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <span class="text-white"><?= $nombre." ".$apellido_paterno ?></span>
-                    </div>
-                </div>
+        /* devanagari */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLGT9Z11lFc-K.woff2) format('woff2');
+        unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+        }
 
-                <!-- APARTADO PARA ESPACIOS DE TRABAJO -->
-                <div class="">
-                    <div class="input-group input-group-sm">
-                        <select class="form-control form-control-sidebar bg-dark text-white">
-                            <option value="" selected>...</option>
-                        </select>
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-secondary dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="">...</span>
-                            </button>
-                            <ul class="dropdown-menu" style="--bs-dropdown-link-hover-bg:#d3d3d3">
-                                <li><a class="dropdown-item" style="color:black" href="#"><i class="fas fa-plus fa-xs text-secondary"></i><span style="font-size:14px"> Agregar espacio de trabajo</span></a></li>
-                                <li><a class="dropdown-item" style="color:black" href="#"><i class="fas fa-pen fa-xs text-secondary"></i><span style="font-size:14px"> Renombrar espacio de trabajo</span></a></li>
-                                <li><a class="dropdown-item" style="color:black" href="#"><i class="fas fa-trash fa-xs text-secondary"></i><span style="font-size:14px"> Eliminar espacio de trabajo</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        /* latin-ext */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2) format('woff2');
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
 
-                <hr style="border-bottom: 1px solid #aeb8c8;">
+        /* latin */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
 
-                <!-- BUSCADOR MENU LATERAL -->
-                <div class="form-inline mb-3">
-                    <div class="input-group input-group-sm" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar bg-dark text-white" type="search" placeholder="Buscar" aria-label="Buscar">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw fa-xs"></i>
-                            </button>
-                        </div>
-                        <div class="input-group-append">
-                            <button class="btn btn-success" type="button">
-                                <span>+</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        /* devanagari */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLEj6Z11lFc-K.woff2) format('woff2');
+        unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+        }
 
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
+        /* latin-ext */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2) format('woff2');
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-clipboard"></i>
-                                <p>Tablero</p>
-                                <span class="right">...</sapn>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-clipboard"></i>
-                                <p>Tablero</p>
-                                <span class="right">...</sapn>
-                            </a>
-                        </li>
+        /* latin */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
 
-                    </ul>
-                </nav>
-                
-                <hr style="border-bottom: 1px solid #aeb8c8;">
-                
-                <!-- APARTADO PARA ESPACIOS DE TRABAJO -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <p>
-                                    Sistema
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/examples/lockscreen.html" class="nav-link">
-                                        <i class="nav-icon fas fa-user-tie"></i>
-                                        <p>Usuarios</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                        <i class="nav-icon fas fa-user-lock"></i>
-                                        <p>Tipos de usuario</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/examples/language-menu.html" class="nav-link">
-                                        <i class="nav-icon fas fa-tags"></i>
-                                        <p>Estatus</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        </u>
-                </div>
+        /* devanagari */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLCz7Z11lFc-K.woff2) format('woff2');
+        unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+        }
 
+        /* latin-ext */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2) format('woff2');
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
 
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+        /* latin */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
 
-        <!-- CONTENIDO DE LA PAGINA -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <!-- <section class="content-header">
-                <div class="container-fluid">
-                </div>
-            </section> -->
-            <!-- Main content -->
-            <section class="content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">jsGrid</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div id="jsGrid1"></div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </section>
-            <!-- /.content -->
-        </div>
+        /* devanagari */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 800;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLDD4Z11lFc-K.woff2) format('woff2');
+        unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+        }
 
-        <!-- FOOTER -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.2.0
-            </div>
-        </footer>
+        /* latin-ext */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 800;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLDD4Z1JlFc-K.woff2) format('woff2');
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-    </div>
+        /* latin */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 800;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLDD4Z1xlFQ.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
 
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-    $.widget.bridge('uibutton', $.ui.button)
+        /* devanagari */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLBT5Z11lFc-K.woff2) format('woff2');
+        unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+        }
+
+        /* latin-ext */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLBT5Z1JlFc-K.woff2) format('woff2');
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        /* latin */
+        @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+        src: url(/fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLBT5Z1xlFQ.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+    </style>
+
+    <script nonce="237453fb-4e9f-4874-933b-b687c2e267a8">
+        (function(w, d) {
+        ! function(f, g, h, i) {
+            f[h] = f[h] || {};
+            f[h].executed = [];
+            f.zaraz = {
+            deferred: [],
+            listeners: []
+            };
+            f.zaraz.q = [];
+            f.zaraz._f = function(j) {
+            return function() {
+                var k = Array.prototype.slice.call(arguments);
+                f.zaraz.q.push({
+                m: j,
+                a: k
+                })
+            }
+            };
+            for (const l of ["track", "set", "debug"]) f.zaraz[l] = f.zaraz._f(l);
+            f.zaraz.init = () => {
+            var m = g.getElementsByTagName(i)[0],
+                n = g.createElement(i),
+                o = g.getElementsByTagName("title")[0];
+            o && (f[h].t = g.getElementsByTagName("title")[0].text);
+            f[h].x = Math.random();
+            f[h].w = f.screen.width;
+            f[h].h = f.screen.height;
+            f[h].j = f.innerHeight;
+            f[h].e = f.innerWidth;
+            f[h].l = f.location.href;
+            f[h].r = g.referrer;
+            f[h].k = f.screen.colorDepth;
+            f[h].n = g.characterSet;
+            f[h].o = (new Date).getTimezoneOffset();
+            if (f.dataLayer)
+                for (const s of Object.entries(Object.entries(dataLayer).reduce(((t, u) => ({
+                    ...t[1],
+                    ...u[1]
+                })), {}))) zaraz.set(s[0], s[1], {
+                scope: "page"
+                });
+            f[h].q = [];
+            for (; f.zaraz.q.length;) {
+                const v = f.zaraz.q.shift();
+                f[h].q.push(v)
+            }
+            n.defer = !0;
+            for (const w of [localStorage, sessionStorage]) Object.keys(w || {}).filter((y => y.startsWith(
+                "_zaraz_"))).forEach((x => {
+                try {
+                f[h]["z_" + x.slice(7)] = JSON.parse(w.getItem(x))
+                } catch {
+                f[h]["z_" + x.slice(7)] = w.getItem(x)
+                }
+            }));
+            n.referrerPolicy = "origin";
+            n.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(f[h])));
+            m.parentNode.insertBefore(n, m)
+            };
+            ["complete", "interactive"].includes(g.readyState) ? zaraz.init() : f.addEventListener("DOMContentLoaded",
+            zaraz.init)
+        }(w, d, "zarazData", "script");
+        })(window, document);
     </script>
-    <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
-    <script src="plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src="plugins/moment/moment.min.js"></script>
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
-    <script src="plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard.js"></script>
-    <!-- jsGrid -->
-    <script src="plugins/jsgrid/demos/db.js"></script>
-    <script src="plugins/jsgrid/jsgrid.min.js"></script>
 
+<style>
+#sidebar{min-width:250px;max-width:250px;background:#1d1919;color:#fff;-webkit-transition:all .3s;-o-transition:all .3s;transition:all .3s}#sidebar.active{margin-left:-250px}#sidebar .logo{display:block;width:120px;height:120px;margin:0 auto}#sidebar .logo span{display:block}#sidebar ul.components{padding:0}#sidebar ul li{font-size:16px}#sidebar ul li>ul{margin-left:10px}#sidebar ul li>ul li{font-size:14px}#sidebar ul li a{padding:10px 0;display:block;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.1)}#sidebar ul li a:hover{color:#f8b739}#sidebar ul li.active>a{background:0 0;color:#f8b739}@media(max-width:991.98px){#sidebar{margin-left:-250px}#sidebar.active{margin-left:0}}a[data-toggle=collapse]{position:relative}.dropdown-toggle::after{display:block;position:absolute;top:50%;right:0;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}@media(max-width:991.98px){#sidebarCollapse span{display:none}}#content{width:100%;padding:0;min-height:100vh;-webkit-transition:all .3s;-o-transition:all .3s;transition:all .3s}.btn.btn-primary{background:#f8b739;border-color:#f8b739}.btn.btn-primary:hover,.btn.btn-primary:focus{background:#f8b739!important;border-color:#f8b739!important}.footer p{color:rgba(255,255,255,.5)}
+</style>
+
+</head>
+  <body>
+    
+    <div class="wrapper d-flex align-items-stretch">
+      <nav id="sidebar">
+        <div class="offcanvas offcanvas-start show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+          id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+          </div>
+          <div class="offcanvas-body">
+            <p>Try scrolling the rest of the page to see this option in action.</p>
+          </div>
+        </div>
+      </nav>
+
+      <div id="content">
+        <nav class="navbar navbar-expand-lg bg-dark bg-body-tertiary" data-bs-theme="dark">
+          <div class="container-fluid">
+            <!-- <button type="button" id="sidebarCollapse" class="btn btn-primary">   -->
+
+            <a class="navbar-brand" href="#">Navbar</a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+              </ul>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" id="sidebarCollapse">Enable body
+                scrolling</button>
+            </div>
+          </div>
+        </nav>
+        <div class="bg-dark m-2"  style="min-height:100vh">
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- jquery -->
+    <script src="js/jquery/jquery-3.7.0/jquery.min.js"></script>
     <!-- BOOTSTRAP -->
     <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.js"></script>
 
     <script>
-        $(function () {
-            $("#jsGrid1").jsGrid({
-                height: "100%",
-                width: "100%",
-
-                sorting: true,
-                paging: true,
-
-                data: db.clients,
-
-                fields: [
-                    { name: "Name", type: "text", width: 150 },
-                    { name: "Age", type: "number", width: 50 },
-                    { name: "Address", type: "text", width: 200 },
-                    { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
-                    { name: "Married", type: "checkbox", title: "Is Married" }
-                ]
-            });
-        });
+        (function($){"use strict";var fullHeight=function(){$('.js-fullheight').css('height',$(window).height());$(window).resize(function(){$('.js-fullheight').css('height',$(window).height());});};fullHeight();$('#sidebarCollapse').on('click',function(){$('#sidebar').toggleClass('active');});})(jQuery);
     </script>
-</body>
+    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7e35d2a4dab8e936","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.4.0","si":100}' crossorigin="anonymous"></script> -->
+  </body>
 </html>
