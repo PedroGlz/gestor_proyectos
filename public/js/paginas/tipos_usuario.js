@@ -1,0 +1,1 @@
+alert("miau desde tipos")

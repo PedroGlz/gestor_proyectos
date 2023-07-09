@@ -1,7 +1,7 @@
 <?php namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UsuariosMdl;
+use App\Models\Usuarios_Mdl;
 
 class Login extends BaseController
 {
@@ -11,7 +11,7 @@ class Login extends BaseController
         // Mostrar el login solo cuando no se ha iniciado session 
         if(is_null($session->usuario) || $session->usuario == ''){
             // return redirect()->to(base_url('/'));
-            return view('login');
+            return view('paginas/login');
         }
                 
         return redirect()->route('principal');
@@ -25,7 +25,7 @@ class Login extends BaseController
         $password = $this->request->getPost('Password');
         // $recordarme = $this->request->getPost('remember');
 
-        $usuarioMdl = new UsuariosMdl();
+        $usuarioMdl = new Usuarios_Mdl();
         $session = session();
 
         // Obteniendo resultados de la consulta
@@ -77,10 +77,10 @@ class Login extends BaseController
             "usuario" => $session->usuario,
             "nombre" => $session->nombre,
             "apellido_paterno" => $session->apellido_paterno,
-            "tipo_usuario" => $session->id_tipo_usuario,
+            "tipo_usuario" => $session->tipo_usuario,
             "fecha_login" => date("Y-m-d H:i:s")
         ];
 
-        return view('principal',$datos_sesion);
+        return view('paginas/principal',$datos_sesion);
     }
 }

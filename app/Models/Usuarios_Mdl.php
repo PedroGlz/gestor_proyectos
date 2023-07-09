@@ -2,7 +2,7 @@
 
 use CodeIgniter\Model;
 
-class UsuariosMdl extends Model
+class Usuarios_Mdl extends Model
 {
 
     protected $table = 'usuarios';

@@ -32,7 +32,12 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Login::index');
 $routes->post('/validar', 'Login::validar');
 $routes->get('/salir', 'Login::salir');
+
 $routes->get('principal', 'Login::principal');
+$routes->get('/usuarios', 'Usuarios::index');
+$routes->get('/usuarios/show', 'Usuarios::show');
+$routes->get('/tipos_usuario', 'Tipos_usuario::index');
+
 
 /*
  * --------------------------------------------------------------------
