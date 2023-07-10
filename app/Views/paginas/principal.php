@@ -286,6 +286,8 @@
     <div class="content-wrapper">
       <section class="p-1">
         <div class="bg-white border" id="contenedor_paginas">
+          
+          <?php include('espacios_trabajo.php'); ?>
 
         </div>
       </section>

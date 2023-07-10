@@ -38,6 +38,9 @@ $routes->get('/usuarios', 'Usuarios::index');
 $routes->get('/usuarios/show', 'Usuarios::show');
 $routes->get('/tipos_usuario', 'Tipos_usuario::index');
 
+// ESPACIOS DE TRABAJO
+$routes->get('/espacios_trabajo/create', 'Espacios_de_trabajo::create');
+
 
 /*
  * --------------------------------------------------------------------

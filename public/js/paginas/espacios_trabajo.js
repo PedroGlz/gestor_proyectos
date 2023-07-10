@@ -1,3 +1,6 @@
+const btn_guardar_espacio_trabajo = document.querySelector("#btn_guardar_espacio_trabajo");
+
 function crear_espacio_trabajo() {
-    console.log("entro a la fucion de spacion trabaj")
+    $('#modal_espacios_trabajo').modal('show')
 }
+

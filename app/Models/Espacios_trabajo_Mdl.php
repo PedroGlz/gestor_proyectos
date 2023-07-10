@@ -2,7 +2,7 @@
 
 use CodeIgniter\Model;
 
-class Espacios_de_trabajo extends Model
+class Espacios_trabajo_Mdl extends Model
 {
 
     protected $table = 'espacios_trabajo';
@@ -11,6 +11,7 @@ class Espacios_de_trabajo extends Model
         'id_espacio_trabajo',
         'nombre_espacio',
         'imagen_espacio',
+        'usuario_creador',
         'privacidad',
         'activo',
         'fecha_creacion',
