@@ -9,11 +9,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const btn_agregar_espacio_trabajo = document.querySelector("#btn_agregar_espacio_trabajo");
     const btn_editar_espacio_trabajo = document.querySelector("#btn_editar_espacio_trabajo");
     const btn_eliminar_espacio_trabajo = document.querySelector("#btn_eliminar_espacio_trabajo");
+    const btn_guardar_espacio_trabajo = document.querySelector("#btn_guardar_espacio_trabajo");
+    const select_espacios_trabajo = document.querySelector("#select_espacios_trabajo");
+    /* variables elementos tableros */
+    const btn_nuevo_tablero = document.querySelector("#btn_nuevo_tablero");
+    const contenedor_lista_tableros = document.querySelector("#contenedor_lista_tableros");
+    const btn_guardar_tablero = document.querySelector("#btn_guardar_tablero");
     /* varaibles elementos catalogos */
     const btn_catalogo_usuarios = document.querySelector('#btn_catalogo_usuarios');
     const btn_catalogo_tipos_usuario = document.querySelector('#btn_catalogo_tipos_usuario');
 
     /* LLAMADO A FUNCIONES */
+    cargar_select_espacios_trabajo()
     cargar_event_listeners_principal()
 });
 
@@ -21,10 +28,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function cargar_event_listeners_principal(){
     btn_catalogo_usuarios.addEventListener('click', cargar_catalogo_usuarios);
     btn_catalogo_tipos_usuario.addEventListener('click', cargar_catalogo_tipos_usuario);
-
+    // espacios de trabajo
     btn_agregar_espacio_trabajo.addEventListener('click', crear_espacio_trabajo)
-    // btn_editar_espacio_trabajo.addEventListener('click',)
-    // btn_eliminar_espacio_trabajo.addEventListener('click',)
+    btn_guardar_espacio_trabajo.addEventListener('click', guardar_datos_espacio_trabajo)
+    btn_editar_espacio_trabajo.addEventListener('click', editar_espacio_trabajo)
+    btn_eliminar_espacio_trabajo.addEventListener('click', eliminar_espacio_trabajo)
+    select_espacios_trabajo.addEventListener('change',(event) => {cargar_lista_tableros(event.target.value)});
+    // tableros
+    btn_nuevo_tablero.addEventListener('click', crear_tableros)
+    btn_guardar_tablero.addEventListener('click', guardar_datos_tablero)
+    contenedor_lista_tableros.addEventListener('click',(event) => {opciones_tablero(event)});
+    // $(".btn_renombrar_tablero").click((event) => {opciones_tablero(event)});
+    // $(".btn_eliminar_tablero").click((event) => {opciones_tablero(event)});
 }
 
 function cargar_catalogo_usuarios(){

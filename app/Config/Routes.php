@@ -39,8 +39,15 @@ $routes->get('/usuarios/show', 'Usuarios::show');
 $routes->get('/tipos_usuario', 'Tipos_usuario::index');
 
 // ESPACIOS DE TRABAJO
-$routes->get('/espacios_trabajo/create', 'Espacios_de_trabajo::create');
-
+$routes->get('/espacios_trabajo/show', 'Espacios_de_trabajo::show');
+$routes->post('/espacios_trabajo/create', 'Espacios_de_trabajo::create');
+$routes->post('/espacios_trabajo/update', 'Espacios_de_trabajo::update');
+$routes->get('/espacios_trabajo/delete/(:any)', 'Espacios_de_trabajo::delete/$1');
+// TABLEROS
+$routes->get('/tableros/show/(:any)', 'Tableros::show/$1');
+$routes->post('/tableros/create', 'Tableros::create');
+$routes->post('/tableros/update', 'Tableros::update');
+$routes->get('/tableros/delete/(:any)', 'Tableros::delete/$1');
 
 /*
  * --------------------------------------------------------------------

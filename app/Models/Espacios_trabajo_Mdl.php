@@ -20,9 +20,9 @@ class Espacios_trabajo_Mdl extends Model
 
     public function get($id = null){
         if($id === null){
-            return $this->findAll();
+            return $this->where(['activo' => '1'])->findAll();
         }
 
-        return $this->asArray()->where(['id_espacio_trabajo' => $id])->first();
+        return $this->asArray()->where(['id_espacio_trabajo' => $id,'activo' => '1'])->first();
     }
 }

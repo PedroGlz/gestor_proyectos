@@ -12,7 +12,7 @@
         <form action="/espacios_trabajo/create" method="POST" id="form_espacios_trabajo">
             <!-- CAMPOS OCULTOS -->
             <div hidden>
-                <input type="text" name="id_espacio_trabajo">
+                <input type="text" name="id_espacio_trabajo" id="id_espacio_trabajo">
             </div>
             <div class="form-group row">
                 <div class="col">

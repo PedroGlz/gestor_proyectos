@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- TEMA DE ADMINLTE -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- ESTILOS DE LA PAGINA PRINCIPAL -->
@@ -169,10 +171,10 @@
         </div>
 
         <!-- APARTADO PARA ESPACIOS DE TRABAJO -->
-        <div class="">
+        <div class="row ml-0">
           <div class="input-group input-group-sm">
-            <select class="form-control form-control-sidebar bg-dark text-white">
-              <option value="" selected>...</option>
+            <select class="form-control form-control-sidebar bg-dark text-white" id="select_espacios_trabajo">
+              <option value="0" selected>Seleccionar opción</option>
             </select>
             <div class="input-group-append">
               <div class="d-flex">
@@ -193,7 +195,6 @@
                       <i class="fas fa-trash fa-xs text-secondary"></i>
                       <span style="font-size:14px"> Eliminar espacio de trabajo</span>
                     </a>
-
                   </div>
                 </div>
               </div>
@@ -206,15 +207,14 @@
         <!-- BUSCADOR MENU LATERAL -->
         <div class="form-inline mb-3">
           <div class="input-group input-group-sm" data-widget="sidebar-search">
-            <input class="form-control form-control-sidebar bg-dark text-white" type="search" placeholder="Buscar"
-              aria-label="Buscar">
+            <input class="form-control form-control-sidebar bg-dark text-white" type="search" placeholder="Buscar" aria-label="Buscar">
             <div class="input-group-append">
-              <button class="btn btn-sidebar">
+              <button class="btn btn-sidebar btn-sm">
                 <i class="fas fa-search fa-fw fa-xs"></i>
               </button>
             </div>
             <div class="input-group-append">
-              <button class="btn btn-success" type="button">
+              <button class="btn btn-success btn-sm rounded-0" type="button" id="btn_nuevo_tablero">
                 <span>+</span>
               </button>
             </div>
@@ -222,24 +222,21 @@
         </div>
 
         <!-- LISTA DE TABLEROS -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" role="menu" data-accordion="false">
+        <!-- <nav class="mt-2">
+          <ul id="contenedor_lista_tableros" class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" role="menu" data-accordion="false">
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-clipboard"></i>
-                <p>&nbsp;Tablero</p>
-                <span class="right">...</sapn>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-clipboard"></i>
-                <p>&nbsp;Tablero</p>
-                <span class="right">...</sapn>
+              <a href="#" class="nav-link text-center">
+                <p>Selecciona algún espacio de trabajo</p>
               </a>
             </li>
           </ul>
-        </nav>
+        </nav> -->
+
+        <div class="row">
+          <div class="col-12 form-control-sidebar" id="contenedor_lista_tableros">
+            <p class="text-center">Selecciona algún espacio de trabajo</p>
+          </div>
+        </div>
 
         <hr style="border-bottom: 1px solid #505967;">
 
@@ -286,8 +283,9 @@
     <div class="content-wrapper">
       <section class="p-1">
         <div class="bg-white border" id="contenedor_paginas">
-          
+
           <?php include('espacios_trabajo.php'); ?>
+          <?php include('tableros.php'); ?>
 
         </div>
       </section>
@@ -325,15 +323,19 @@
   <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
   <!-- jquery-validation -->
   <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
   <script src="plugins/jquery-validation/additional-methods.min.js"></script>
   <!-- JS PAGINA PRINCIPAL -->
+  <script src="js/paginas/global.js"></script>
   <script src="js/paginas/espacios_trabajo.js"></script>
+  <script src="js/paginas/tableros.js"></script>
   <script src="js/paginas/principal.js"></script>
-  
+
 </body>
 
 </html>
