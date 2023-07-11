@@ -282,12 +282,9 @@
     <!-- CONTENIDO DE LA PAGINA -->
     <div class="content-wrapper">
       <section class="p-1">
-        <div class="bg-white border" id="contenedor_paginas">
-
-          <?php include('espacios_trabajo.php'); ?>
-          <?php include('tableros.php'); ?>
-
-        </div>
+        <div class="bg-white border" id="contenedor_paginas"></div>
+        <?php include('espacios_trabajo.php'); ?>
+        <?php include('tableros.php'); ?>
       </section>
     </div>
 

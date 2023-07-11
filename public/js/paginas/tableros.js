@@ -68,7 +68,7 @@ function guardar_datos_tablero(){
 
 function opciones_tablero(event){
     let btn_seleccionado = event.target;
-    let btn_tablero_lista = btn.parentElement.parentElement.previousElementSibling;
+    let btn_tablero_lista = btn_seleccionado.parentElement.parentElement.previousElementSibling;
 
     if(btn_seleccionado.classList.contains('btn_renombrar_tablero')){
         editar_tablero(btn_tablero_lista)
@@ -108,7 +108,7 @@ function eliminar_tablero(btn){
         success: function (res) {
             console.log(res)
 
-            document.querySelector(`#tab_list_${btn.value}`).remove()
+            document.querySelector(`#tab_list_${btn.value}`).parentElement.remove();
 
             // Mostramos mensaje de operacion exitosa
             Toast.fire({
@@ -150,7 +150,7 @@ function cargar_lista_tableros(id_espacio_trabajo_tablero){
                         &nbsp;${tablero.nombre_tablero}
                     </button>
                     <div class="dropdown">
-                      <button class="btn btn-dark btn-sm rounded-0 border-0" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
+                      <button class="btn btn-dark btn-sm rounded-0 border-0 h-100" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
                       <div class="dropdown-menu">
                         <button class="dropdown-item btn_renombrar_tablero" type="button" style="font-size:14px" value="${tablero.id_tablero}" privacidad="${tablero.privacidad}">
                             <i class="fas fa-pen fa-xs text-secondary"></i>
