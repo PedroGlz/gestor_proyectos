@@ -1,4 +1,4 @@
-<div class="p-3">
+<div class="">
     <div class="d-flex justify-content-between align-items-end mb-3">
         <div>
             <h3><i class="fas fa-user-tie"></i>&nbsp;&nbsp;Usuarios</h3>

@@ -66,17 +66,6 @@ function guardar_datos_tablero(){
     }
 }
 
-function opciones_tablero(event){
-    let btn_seleccionado = event.target;
-    let btn_tablero_lista = btn_seleccionado.parentElement.parentElement.previousElementSibling;
-
-    if(btn_seleccionado.classList.contains('btn_renombrar_tablero')){
-        editar_tablero(btn_tablero_lista)
-    }else if(btn_seleccionado.classList.contains('btn_eliminar_tablero')){
-        eliminar_tablero(btn_tablero_lista)
-    }
-}
-
 function editar_tablero(btn){
     console.log(btn)
 

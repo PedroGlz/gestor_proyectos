@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- jsGrid -->
+  <link rel="stylesheet" href="plugins/jsgrid/jsgrid.min.css">
+  <link rel="stylesheet" href="plugins/jsgrid/jsgrid-theme.min.css">
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- TEMA DE ADMINLTE -->
@@ -222,16 +225,6 @@
         </div>
 
         <!-- LISTA DE TABLEROS -->
-        <!-- <nav class="mt-2">
-          <ul id="contenedor_lista_tableros" class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" role="menu" data-accordion="false">
-            <li class="nav-item">
-              <a href="#" class="nav-link text-center">
-                <p>Selecciona algún espacio de trabajo</p>
-              </a>
-            </li>
-          </ul>
-        </nav> -->
-
         <div class="row">
           <div class="col-12 form-control-sidebar" id="contenedor_lista_tableros">
             <p class="text-center">Selecciona algún espacio de trabajo</p>
@@ -281,10 +274,50 @@
 
     <!-- CONTENIDO DE LA PAGINA -->
     <div class="content-wrapper">
-      <section class="p-1">
-        <div class="bg-white border" id="contenedor_paginas"></div>
-        <?php include('espacios_trabajo.php'); ?>
-        <?php include('tableros.php'); ?>
+      <!-- <section class="p-1"> -->
+        <!-- <div class="bg-white border p-3" id="contenedor_paginas"> -->
+          <!-- Modales menu -->
+          <?php include('espacios_trabajo.php'); ?>
+          <?php include('tableros.php'); ?>
+          <!-- Vistas catalogos -->
+          <div class="vista_sistema" id="vista_catalogo_usuarios" style="display:none">
+            <?php include('usuarios.php'); ?>
+          </div>
+          <!-- Vista grupos y poryectos -->
+          <div class="vista_sistema" id="vista_proyectos" style="display:none">
+            <?php include('proyectos.php'); ?>
+          </div>
+        <!-- </div>
+      </section> -->
+
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>jsGrid</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">jsGrid</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">jsGrid</h3>
+          </div>
+
+          <div class="card-body">
+            <div id="jsGrid1"></div>
+          </div>
+
+        </div>
+
       </section>
     </div>
 
@@ -307,6 +340,9 @@
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- jsGrid -->
+  <script src="plugins/jsgrid/demos/db.js"></script>
+  <script src="plugins/jsgrid/jsgrid.min.js"></script>
   <!-- DataTables  & Plugins -->
   <script src="plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -329,6 +365,9 @@
   <script src="plugins/jquery-validation/additional-methods.min.js"></script>
   <!-- JS PAGINA PRINCIPAL -->
   <script src="js/paginas/global.js"></script>
+  <script src="js/paginas/usuarios.js"></script>
+  <script src="js/paginas/proyectos.js"></script>
+  <script src="js/paginas/grupos.js"></script>
   <script src="js/paginas/espacios_trabajo.js"></script>
   <script src="js/paginas/tableros.js"></script>
   <script src="js/paginas/principal.js"></script>

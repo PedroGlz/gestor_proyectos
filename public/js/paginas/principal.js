@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 /* FUNCIONES */
 function cargar_event_listeners_principal(){
-    btn_catalogo_usuarios.addEventListener('click', cargar_catalogo_usuarios);
-    btn_catalogo_tipos_usuario.addEventListener('click', cargar_catalogo_tipos_usuario);
+    btn_catalogo_usuarios.addEventListener('click', mostrar_catalogo_usuarios);
+    btn_catalogo_tipos_usuario.addEventListener('click', mostrar_catalogo_tipos_usuario);
     // espacios de trabajo
     btn_agregar_espacio_trabajo.addEventListener('click', crear_espacio_trabajo)
     btn_guardar_espacio_trabajo.addEventListener('click', guardar_datos_espacio_trabajo)
@@ -42,40 +42,36 @@ function cargar_event_listeners_principal(){
     // $(".btn_eliminar_tablero").click((event) => {opciones_tablero(event)});
 }
 
-function cargar_catalogo_usuarios(){
+function mostrar_catalogo_usuarios(){
     limpiar_contenedor_paginas()
-    $('#contenedor_paginas').load('usuarios', function( response, status, xhr ) {
-        if ( status == "error" ) {
-            var msg = "Sorry but there was an error: ";
-            $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
-        }
-
-        if (script_usuarios_cargado == false) {
-            $.getScript({url: "js/paginas/usuarios.js",cache:true}, function() {
-                script_usuarios_cargado = true;
-            });
-        }
-
-    });    
+    document.querySelector("#vista_catalogo_usuarios").style.display = "";
 }
 
-function cargar_catalogo_tipos_usuario() {
+function mostrar_catalogo_tipos_usuario() {
     limpiar_contenedor_paginas()
-    $('#contenedor_paginas').load('tipos_usuario', function( response, status, xhr ) {
-        if ( status == "error" ) {
-            var msg = "Sorry but there was an error: ";
-            $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
-        }
-
-        if (script_tipos_usuario_cargado == false) {
-            $.getScript({url: "js/paginas/tipos_usuario.js",cache:true}, function() {
-                script_tipos_usuario_cargado = true;
-            });
-        }
-
-    });   
 }
 
 function limpiar_contenedor_paginas(){
-    document.querySelector("#contenedor_paginas").innerHTML = "";
+    let elementos_contenedor_paginas = document.querySelectorAll(".vista_sistema");
+    
+    elementos_contenedor_paginas.forEach(element => {
+        console.log(element)
+       element.style.display = 'none';
+    });
+
+    console.log("limpiado ya")
+}
+
+function opciones_tablero(event){
+    console.log(event.target)
+    let btn_seleccionado = event.target;
+    let btn_tablero_lista = btn_seleccionado.parentElement.parentElement.previousElementSibling;
+
+    if(btn_seleccionado.classList.contains('btn_renombrar_tablero')){
+        editar_tablero(btn_tablero_lista)
+    }else if(btn_seleccionado.classList.contains('btn_eliminar_tablero')){
+        eliminar_tablero(btn_tablero_lista)
+    }else if(btn_seleccionado.classList.contains('btn_tablero_lista')){
+        mostrar_sistema_proyectos()
+    }
 }
