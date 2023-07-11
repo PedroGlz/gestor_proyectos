@@ -1,6 +1,10 @@
+// validar_grupo()
+
+// /* FUNCIONES */
 function mostrar_sistema_proyectos(id_tablero){
+    limpiar_contenedor_paginas()
     document.querySelector("#btn_nuevo_grupo").value = id_tablero;
-    cargar_grupo(id_tablero)
+    cargar_grupos(id_tablero)
     document.querySelector("#vista_grupos").style.display = "";
 }
 
@@ -13,9 +17,14 @@ function expandir_cards_proyectos(){
 }
 
 function crear_grupo(event){
-
+    let btn = event.target;
+    // Si se dio click en el icono rescatamos el boton
+    if(btn.classList.contains('fas')){
+        btn = btn.parentElement;
+    }
+    console.log(btn)
     let datos_alta = {
-        id_tablero: event.target.value
+        id_tablero: btn.value
     }
 
     if(datos_alta.id_tablero == "undefined" || datos_alta.id_tablero == ''){
@@ -30,9 +39,6 @@ function crear_grupo(event){
     guardar_datos_grupo('/grupos/create',datos_alta);
 }
 
-// validar_grupo()
-
-// /* FUNCIONES */
 // function crear_grupo() {
 //     if(select_espacios_trabajo.value == 0){
 //         // Mostramos mensaje error
@@ -57,32 +63,19 @@ function guardar_datos_grupo(accion,formData){
         // processData: false,
         // contentType: false,
         success: function (res) {
-            console.log(res)
             let datos = res.data;
-            console.log(datos)
-            // // Si fue un create se crea de nuevo el select con los datos nuevos
-            // if(form_action == "/grupo/create"){
-            //     // Despues de crearse el registro en BD se el select
-                cargar_grupo(datos.id_tablero).then(() => {
-            //         // select_grupo.value = res.id_creado
-                });
-            // // Si no, solo se le cambia el nombre al option
-            // }else{
-            //     let datos = res.data;
-            //     console.log(res)
-            //     console.log(datos)
+            console.log(res)
+            // Si fue un create se crea de nuevo el select con los datos nuevos
+            if(accion == "/grupos/create"){
+                // Despues de crearse el registro en BD se el select
+                cargar_grupos(datos.id_tablero)
+            }
 
-            //     document.querySelector(`#tab_list_${res.id_grupo}`).setAttribute("privacidad", datos.privacidad);
-            //     document.querySelector(`#tab_list_${res.id_grupo}`).innerHTML = `<i class="far fa-clipboard"></i>&nbsp;&nbsp;${datos.nombre_grupo}`;
-            // }
-
-            // // Cerramos elmodal
-            // $('#modal_grupo').modal('hide');
             // // Mostramos mensaje de operacion exitosa
-            // Toast.fire({
-            //     icon: 'success',
-            //     title: 'Agregado'
-            // })
+            Toast.fire({
+                icon: 'success',
+                title: 'Guardado'
+            })
         },
         error: function (err) {
             console.log(err.statusText);
@@ -90,38 +83,57 @@ function guardar_datos_grupo(accion,formData){
     });
 }
 
-function editar_grupo(btn){
-    console.log(btn)
+function editar_grupo(event){
+    let btn = event.target;
+    // Si se dio click en el icono rescatamos el boton
+    if(btn.classList.contains('btn_actualizar_nombre_grupo') && btn.classList.contains('fas')){
+        btn = btn.parentElement;
+    }
+    let input_nombre_grupo = btn.previousElementSibling.value;
+    let color_grupo_card = btn.parentElement.parentElement.parentElement.style.backgroundColor;
 
-    cambiar_action_form_grupo('update');
+    if(btn.classList.contains('btn_actualizar_nombre_grupo')){
+        let datos_edit = {
+            id_grupo: btn.value,
+            nombre_grupo: input_nombre_grupo,
+            color_grupo: color_grupo_card,
+        }
     
-    // Validando si es privado para activar el checBox
-    document.querySelector("#grupo_privado").removeAttribute("checked")
-    document.querySelector("#grupo_publico").removeAttribute("checked")
-    if(btn.getAttribute("privacidad") == 1){
-        document.querySelector("#grupo_privado").setAttribute("checked", "");
-    }else{
-        document.querySelector("#grupo_publico").setAttribute("checked", "");
+        if(datos_edit.id_grupo == "undefined" || datos_edit.id_grupo == '' ||
+            datos_edit.nombre_grupo == "undefined" || datos_edit.nombre_grupo == ''){
+            // Mostramos mensaje error
+            Toast.fire({
+                icon: 'warning',
+                title: 'Datos incompletos'
+            })
+            return;
+        }
+        
+        console.log(datos_edit);
+        guardar_datos_grupo('/grupos/update',datos_edit);
     }
 
-    document.querySelector("#id_grupo").value = btn.value;
-    document.querySelector("#nombre_grupo").value = btn.innerText.trim();
-    
-    $('#modal_grupo').modal('show')
 }
 
-function eliminar_grupo(btn){
-    console.log(btn.value)
+function eliminar_grupo(event){
+    let btn = event.target;
+    
+    // Si se dio click en el icono rescatamos el boton
+    if(btn.classList.contains('btn_eliminar_grupo') && btn.classList.contains('fas')){
+        btn = btn.parentElement;
+    }
+    let card_completo = btn.parentElement.parentElement.parentElement.parentElement.parentElement;
+    
     $.ajax({
-        url: `grupo/delete/${btn.value}`,
+        url: `grupos/delete/${btn.value}`,
         type: "GET",
         dataType: 'json',
         processData: false,
         contentType: false,
         success: function (res) {
             console.log(res)
-
-            document.querySelector(`#tab_list_${btn.value}`).parentElement.remove();
+            // Eliminamos el card del DOM
+            card_completo.remove();
 
             // Mostramos mensaje de operacion exitosa
             Toast.fire({
@@ -136,7 +148,7 @@ function eliminar_grupo(btn){
 
 }
 
-function cargar_grupo(id_tablero_grupo){
+function cargar_grupos(id_tablero_grupo){
     return new Promise((resolve, reject) => {
         $.ajax({
             url: `/grupos/show/${id_tablero_grupo}`,
@@ -146,7 +158,6 @@ function cargar_grupo(id_tablero_grupo){
             contentType: false,
             success: function (res) {
                 console.log(res)
-                // document.querySelector("#id_espacio_trabajo_grupo").value = id_espacio_trabajo_grupo;
                 // Limpiando el contenedor de la lista de grupo
                 contenedor_grupos_creados.innerHTML=""
 
@@ -162,29 +173,93 @@ function cargar_grupo(id_tablero_grupo){
                 // creando el la lista de grupo existentes
                 res.forEach(grupo => {
                     contenedor_grupos_creados.innerHTML += `
-                    <div class="card collapsed-card">
+                    <div class="card collapsed-card" style="border-right: 4px solid #bcbcbc; border-bottom: 4px solid #bcbcbc;">
                         <div class="card-header" style="background-color: ${grupo.color_grupo}">
                             <div class="row">
-                            <div class="input-group col-6">
-                                <div class="input-group-prepend">
-                                    <button type="button" class="btn text-white btn_control_colapsar_card" data-card-widget="collapse">
-                                        <i class="fas fa-plus"></i>
+                                <div class="input-group col-6">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn text-white btn_control_colapsar_card" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control elemento_titulo_grupo text-white" placeholder="Nombre grupo" value="${grupo.nombre_grupo}">
+                                    <button type="button" class="btn btn-light elemento_titulo_grupo btn_actualizar_nombre_grupo" onclick="editar_grupo(event)" value="${grupo.id_grupo}">
+                                        <i class="fas fa-sync-alt btn_actualizar_nombre_grupo"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control elemento_titulo_grupo text-white" placeholder="Nombre grupo" value="${grupo.nombre_grupo}">
-                                <button type="button" class="btn btn-light elemento_titulo_grupo btn_actualizar_nombre_grupo" onclick="myFunction(this.value)" value="${grupo.id_grupo}"><i class="fas fa-sync-alt"></i></button>
-                            </div>
             
-                            <div class="col-6 d-flex justify-content-end">
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-light elemento_titulo_grupo btn_eliminar_grupo" onclick="myFunction(this.value)" value="${grupo.id_grupo}"><i class="fas fa-trash"></i></button>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-light elemento_titulo_grupo btn_eliminar_grupo" onclick="eliminar_grupo(event)" value="${grupo.id_grupo}">
+                                            <i class="fas fa-trash btn_eliminar_grupo"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
             
-                        <div class="card-body" style="display: none;">
-                            <div id="jsGrid1">aqui va la tabla</div>
+                        <div class="card-body collapsed-show" style="display: block; padding:4px;">
+                            <div id="jsgrid_grupo_${grupo.id_grupo}"></div>
+                            <table class="table table-bordered table-hover" id="jsGrid">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Reason</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td>982</td>
+                                        <td>Rocky Doe</td>
+                                        <td>11-7-2014</td>
+                                        <td>Denied</td>
+                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                    </tr>
+                                    <tr class="expandable-body d-none">
+                                        <td colspan="5">
+                                            <table class="table table-bordered table-hover" style="display: none;">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Company</th>
+                                                        <th>Contact</th>
+                                                        <th>Country</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alfreds Futterkiste</td>
+                                                        <td>Maria Anders</td>
+                                                        <td>Germany</td>
+                                                    </tr>
+                                                    <tr class="expandable-body">
+                                                        <td>Centro comercial Moctezuma</td>
+                                                        <td>Francisco Chang</td>
+                                                        <td>Mexico</td>
+                                                    </tr>
+                                                    <tr class="expandable-body">
+                                                        <td colspan="3">
+                                                            <p>
+                                                                Lorem Ipsum is simply dummy text of the printing and
+                                                                typesetting industry. Lorem Ipsum has been the
+                                                                industry's standard dummy text ever since the 1500s,
+                                                                when an unknown printer took a galley of type and
+                                                                scrambled it to make a type specimen book. It has
+                                                                survived not only five centuries, but also the leap into
+                                                                electronic typesetting, remaining essentially unchanged.
+                                                                It was popularised in the 1960s with the release of
+                                                                Letraset sheets containing Lorem Ipsum passages, and
+                                                                more recently with desktop publishing software like
+                                                                Aldus PageMaker including versions of Lorem Ipsum.
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>`;
                 });
@@ -196,11 +271,6 @@ function cargar_grupo(id_tablero_grupo){
             }
         });
     });
-}
-
-function myFunction(valor){
-    console.log("botoncito hcidos")
-    console.log(valor)
 }
 
 // function validar_grupo(){
@@ -233,7 +303,7 @@ function myFunction(valor){
 // // cuando se va a agregar o editar un registro
 // function cambiar_action_form_grupo(operacion){
 //     document.querySelector("#form_grupo").removeAttribute("action");
-//     document.querySelector("#form_grupo").setAttribute("action",`/grupo/${operacion}`);    
+//     document.querySelector("#form_grupo").setAttribute("action",`/grupos/${operacion}`);    
 // }
 
 // // Función que restablece todo el form
@@ -245,3 +315,4 @@ function myFunction(valor){
 //     // Quita los estilos de error de los inputs
 //     $('#form_grupo').find(".is-invalid").removeClass("is-invalid");
 // }
+

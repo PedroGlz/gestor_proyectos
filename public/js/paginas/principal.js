@@ -37,7 +37,10 @@ function cargar_event_listeners_principal(){
     btn_guardar_espacio_trabajo.addEventListener('click', guardar_datos_espacio_trabajo)
     btn_editar_espacio_trabajo.addEventListener('click', editar_espacio_trabajo)
     btn_eliminar_espacio_trabajo.addEventListener('click', eliminar_espacio_trabajo)
-    select_espacios_trabajo.addEventListener('change',(event) => {cargar_lista_tableros(event.target.value)});
+    select_espacios_trabajo.addEventListener('change',(event) => {
+        limpiar_contenedor_paginas()
+        cargar_lista_tableros(event.target.value)
+    });
     // tableros
     btn_nuevo_tablero.addEventListener('click', crear_tableros)
     btn_guardar_tablero.addEventListener('click', guardar_datos_tablero)

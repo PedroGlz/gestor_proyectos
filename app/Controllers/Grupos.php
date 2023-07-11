@@ -40,22 +40,22 @@ class Grupos extends BaseController
         $grupos_mdl = new Grupos_Mdl();
         $session = session();
         
-        $id_tablero = $this->request->getPost('id_tablero');
+        $id_grupo = $this->request->getPost('id_grupo');
        
          $data = [
-            'nombre_tablero' => $this->request->getPost('nombre_tablero'),
-            'privacidad' => $this->request->getPost('privacidad'),
+            'nombre_grupo' => $this->request->getPost('nombre_grupo'),
+            'color_grupo' => $this->request->getPost('color_grupo'),
             'fecha_modificacion' => date("Y-m-d H:i:s")
         ];
 
         // Actualizando la BD
-        $update = $grupos_mdl->update($id_tablero,$data);
+        $update = $grupos_mdl->update($id_grupo,$data);
         
         // Para que entre al succes del ajax
         if($update != false){
-            return json_encode(array("status" => true, "data" => $data, "id_tablero" => $id_tablero));
+            return json_encode(array("status" => true, "data" => $data, "id_grupo" => $id_grupo));
         }else{
-            return json_encode(array("status" => false, "data" => $data, "id_tablero" => "0"));
+            return json_encode(array("status" => false, "data" => $data, "id_grupo" => "0"));
         }
     }
     
