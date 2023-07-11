@@ -7,14 +7,15 @@
   <title>Gestor de proyectos</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <!-- jsGrid -->
+  <!-- jsGrid -->
   <link rel="stylesheet" href="plugins/jsgrid/jsgrid.min.css">
   <link rel="stylesheet" href="plugins/jsgrid/jsgrid-theme.min.css">
   <!-- SweetAlert2 -->
@@ -182,7 +183,8 @@
             <div class="input-group-append">
               <div class="d-flex">
                 <div class="dropdown mr-1">
-                  <button type="button" class="btn btn-secondary btn-sm rounded-0" data-toggle="dropdown" aria-expanded="false">
+                  <button type="button" class="btn btn-secondary btn-sm rounded-0" data-toggle="dropdown"
+                    aria-expanded="false">
                     <span class="">...</span>
                   </button>
                   <div class="dropdown-menu">
@@ -210,7 +212,8 @@
         <!-- BUSCADOR MENU LATERAL -->
         <div class="form-inline mb-3">
           <div class="input-group input-group-sm" data-widget="sidebar-search">
-            <input class="form-control form-control-sidebar bg-dark text-white" type="search" placeholder="Buscar" aria-label="Buscar">
+            <input class="form-control form-control-sidebar bg-dark text-white" type="search" placeholder="Buscar"
+              aria-label="Buscar">
             <div class="input-group-append">
               <button class="btn btn-sidebar btn-sm">
                 <i class="fas fa-search fa-fw fa-xs"></i>
@@ -273,9 +276,10 @@
     </aside>
 
     <!-- CONTENIDO DE LA PAGINA -->
-    <div class="content-wrapper">
-      <!-- <section class="p-1"> -->
-        <!-- <div class="bg-white border p-3" id="contenedor_paginas"> -->
+    <div class="content-wrapper" style="background-color: white;min-height: 1304.06px;border: 3px solid #a7a7a7;">
+
+      <section class="content p-2">
+        <div id="contenedor_paginas">
           <!-- Modales menu -->
           <?php include('espacios_trabajo.php'); ?>
           <?php include('tableros.php'); ?>
@@ -284,38 +288,9 @@
             <?php include('usuarios.php'); ?>
           </div>
           <!-- Vista grupos y poryectos -->
-          <div class="vista_sistema" id="vista_proyectos" style="display:none">
-            <?php include('proyectos.php'); ?>
+          <div class="vista_sistema" id="vista_grupos" style="display:none">
+            <?php include('grupos.php'); ?>
           </div>
-        <!-- </div>
-      </section> -->
-
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1>jsGrid</h1>
-            </div>
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">jsGrid</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="content">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">jsGrid</h3>
-          </div>
-
-          <div class="card-body">
-            <div id="jsGrid1"></div>
-          </div>
-
         </div>
 
       </section>

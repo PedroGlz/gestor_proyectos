@@ -48,6 +48,11 @@ $routes->get('/tableros/show/(:any)', 'Tableros::show/$1');
 $routes->post('/tableros/create', 'Tableros::create');
 $routes->post('/tableros/update', 'Tableros::update');
 $routes->get('/tableros/delete/(:any)', 'Tableros::delete/$1');
+// TABLEROS
+$routes->get('/grupos/show/(:any)', 'Grupos::show/$1');
+$routes->post('/grupos/create', 'Grupos::create');
+$routes->post('/grupos/update', 'Grupos::update');
+$routes->get('/grupos/delete/(:any)', 'Grupos::delete/$1');
 
 /*
  * --------------------------------------------------------------------

@@ -15,11 +15,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const btn_nuevo_tablero = document.querySelector("#btn_nuevo_tablero");
     const contenedor_lista_tableros = document.querySelector("#contenedor_lista_tableros");
     const btn_guardar_tablero = document.querySelector("#btn_guardar_tablero");
+    /* variables elementos Grupos */
+    const btn_nuevo_grupo_proyectos = document.querySelector("#btn_nuevo_grupo_proyectos");
+    const contenedor_grupos_creados = document.querySelector("#contenedor_grupos_creados");
     /* varaibles elementos catalogos */
     const btn_catalogo_usuarios = document.querySelector('#btn_catalogo_usuarios');
     const btn_catalogo_tipos_usuario = document.querySelector('#btn_catalogo_tipos_usuario');
 
     /* LLAMADO A FUNCIONES */
+    expandir_cards_proyectos()
     cargar_select_espacios_trabajo()
     cargar_event_listeners_principal()
 });
@@ -38,8 +42,8 @@ function cargar_event_listeners_principal(){
     btn_nuevo_tablero.addEventListener('click', crear_tableros)
     btn_guardar_tablero.addEventListener('click', guardar_datos_tablero)
     contenedor_lista_tableros.addEventListener('click',(event) => {opciones_tablero(event)});
-    // $(".btn_renombrar_tablero").click((event) => {opciones_tablero(event)});
-    // $(".btn_eliminar_tablero").click((event) => {opciones_tablero(event)});
+    // Grupos
+    btn_nuevo_grupo_proyectos.addEventListener('click',(event) => {crear_grupo_proyectos(event)});
 }
 
 function mostrar_catalogo_usuarios(){
@@ -72,6 +76,6 @@ function opciones_tablero(event){
     }else if(btn_seleccionado.classList.contains('btn_eliminar_tablero')){
         eliminar_tablero(btn_tablero_lista)
     }else if(btn_seleccionado.classList.contains('btn_tablero_lista')){
-        mostrar_sistema_proyectos()
+        mostrar_sistema_proyectos(btn_seleccionado.value)
     }
 }
