@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const contenedor_lista_tableros = document.querySelector("#contenedor_lista_tableros");
     const btn_guardar_tablero = document.querySelector("#btn_guardar_tablero");
     /* variables elementos Grupos */
-    const btn_nuevo_grupo_proyectos = document.querySelector("#btn_nuevo_grupo_proyectos");
+    const btn_nuevo_grupo = document.querySelector("#btn_nuevo_grupo");
     const contenedor_grupos_creados = document.querySelector("#contenedor_grupos_creados");
     /* varaibles elementos catalogos */
     const btn_catalogo_usuarios = document.querySelector('#btn_catalogo_usuarios');
@@ -43,7 +43,7 @@ function cargar_event_listeners_principal(){
     btn_guardar_tablero.addEventListener('click', guardar_datos_tablero)
     contenedor_lista_tableros.addEventListener('click',(event) => {opciones_tablero(event)});
     // Grupos
-    btn_nuevo_grupo_proyectos.addEventListener('click',(event) => {crear_grupo_proyectos(event)});
+    btn_nuevo_grupo.addEventListener('click',(event) => {crear_grupo(event)});
 }
 
 function mostrar_catalogo_usuarios(){

@@ -1,6 +1,6 @@
 function mostrar_sistema_proyectos(id_tablero){
-    document.querySelector("#btn_nuevo_grupo_proyectos").value = id_tablero;
-    cargar_grupos_proyectos(id_tablero)
+    document.querySelector("#btn_nuevo_grupo").value = id_tablero;
+    cargar_grupo(id_tablero)
     document.querySelector("#vista_grupos").style.display = "";
 }
 
@@ -12,7 +12,7 @@ function expandir_cards_proyectos(){
     });
 }
 
-function crear_grupo_proyectos(event){
+function crear_grupo(event){
 
     let datos_alta = {
         id_tablero: event.target.value
@@ -27,13 +27,13 @@ function crear_grupo_proyectos(event){
         return;
     }
     
-    guardar_datos_grupo_proyectos('/grupos/create',datos_alta);
+    guardar_datos_grupo('/grupos/create',datos_alta);
 }
 
-// validar_grupo_proyectos()
+// validar_grupo()
 
 // /* FUNCIONES */
-// function crear_grupo_proyectos() {
+// function crear_grupo() {
 //     if(select_espacios_trabajo.value == 0){
 //         // Mostramos mensaje error
 //         Toast.fire({
@@ -43,12 +43,12 @@ function crear_grupo_proyectos(event){
 //         return;
 //     }
 
-//     cambiar_action_form_grupo_proyectos('create');
-//     document.querySelector("#id_espacio_trabajo_grupo_proyectos").value = select_espacios_trabajo.value;
-//     $('#modal_grupo_proyectos').modal('show');
+//     cambiar_action_form_grupo('create');
+//     document.querySelector("#id_espacio_trabajo_grupo").value = select_espacios_trabajo.value;
+//     $('#modal_grupo').modal('show');
 // }
 
-function guardar_datos_grupo_proyectos(accion,formData){
+function guardar_datos_grupo(accion,formData){
     $.ajax({
         data: formData,
         url: accion,
@@ -63,8 +63,8 @@ function guardar_datos_grupo_proyectos(accion,formData){
             // // Si fue un create se crea de nuevo el select con los datos nuevos
             // if(form_action == "/grupo/create"){
             //     // Despues de crearse el registro en BD se el select
-                cargar_grupos_proyectos(datos.id_tablero).then(() => {
-            //         // select_grupo_proyectos.value = res.id_creado
+                cargar_grupo(datos.id_tablero).then(() => {
+            //         // select_grupo.value = res.id_creado
                 });
             // // Si no, solo se le cambia el nombre al option
             // }else{
@@ -72,12 +72,12 @@ function guardar_datos_grupo_proyectos(accion,formData){
             //     console.log(res)
             //     console.log(datos)
 
-            //     document.querySelector(`#tab_list_${res.id_grupo_proyectos}`).setAttribute("privacidad", datos.privacidad);
-            //     document.querySelector(`#tab_list_${res.id_grupo_proyectos}`).innerHTML = `<i class="far fa-clipboard"></i>&nbsp;&nbsp;${datos.nombre_grupo_proyectos}`;
+            //     document.querySelector(`#tab_list_${res.id_grupo}`).setAttribute("privacidad", datos.privacidad);
+            //     document.querySelector(`#tab_list_${res.id_grupo}`).innerHTML = `<i class="far fa-clipboard"></i>&nbsp;&nbsp;${datos.nombre_grupo}`;
             // }
 
             // // Cerramos elmodal
-            // $('#modal_grupo_proyectos').modal('hide');
+            // $('#modal_grupo').modal('hide');
             // // Mostramos mensaje de operacion exitosa
             // Toast.fire({
             //     icon: 'success',
@@ -90,10 +90,10 @@ function guardar_datos_grupo_proyectos(accion,formData){
     });
 }
 
-function editar_grupo_proyectos(btn){
+function editar_grupo(btn){
     console.log(btn)
 
-    cambiar_action_form_grupo_proyectos('update');
+    cambiar_action_form_grupo('update');
     
     // Validando si es privado para activar el checBox
     document.querySelector("#grupo_privado").removeAttribute("checked")
@@ -104,13 +104,13 @@ function editar_grupo_proyectos(btn){
         document.querySelector("#grupo_publico").setAttribute("checked", "");
     }
 
-    document.querySelector("#id_grupo_proyectos").value = btn.value;
-    document.querySelector("#nombre_grupo_proyectos").value = btn.innerText.trim();
+    document.querySelector("#id_grupo").value = btn.value;
+    document.querySelector("#nombre_grupo").value = btn.innerText.trim();
     
-    $('#modal_grupo_proyectos').modal('show')
+    $('#modal_grupo').modal('show')
 }
 
-function eliminar_grupo_proyectos(btn){
+function eliminar_grupo(btn){
     console.log(btn.value)
     $.ajax({
         url: `grupo/delete/${btn.value}`,
@@ -136,17 +136,17 @@ function eliminar_grupo_proyectos(btn){
 
 }
 
-function cargar_grupos_proyectos(id_tablero_grupo_proyectos){
+function cargar_grupo(id_tablero_grupo){
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `/grupos/show/${id_tablero_grupo_proyectos}`,
+            url: `/grupos/show/${id_tablero_grupo}`,
             type: "GET",
             dataType: 'json',
             processData: false,
             contentType: false,
             success: function (res) {
                 console.log(res)
-                // document.querySelector("#id_espacio_trabajo_grupo_proyectos").value = id_espacio_trabajo_grupo_proyectos;
+                // document.querySelector("#id_espacio_trabajo_grupo").value = id_espacio_trabajo_grupo;
                 // Limpiando el contenedor de la lista de grupo
                 contenedor_grupos_creados.innerHTML=""
 
@@ -203,15 +203,15 @@ function myFunction(valor){
     console.log(valor)
 }
 
-// function validar_grupo_proyectos(){
-//     proceso_validacion_grupo_proyectos = $('#form_grupo_proyectos').validate({
+// function validar_grupo(){
+//     proceso_validacion_grupo = $('#form_grupo').validate({
 //         rules: {
-//           nombre_grupo_proyectos: {
+//           nombre_grupo: {
 //             required: true
 //           }
 //         },
 //         messages: {
-//           nombre_grupo_proyectos: {
+//           nombre_grupo: {
 //             required: "Ingresar nombre del grupo"
 //           }
 //         },
@@ -231,17 +231,17 @@ function myFunction(valor){
 
 // // Función que limpia el formulario y cambia el action
 // // cuando se va a agregar o editar un registro
-// function cambiar_action_form_grupo_proyectos(operacion){
-//     document.querySelector("#form_grupo_proyectos").removeAttribute("action");
-//     document.querySelector("#form_grupo_proyectos").setAttribute("action",`/grupo/${operacion}`);    
+// function cambiar_action_form_grupo(operacion){
+//     document.querySelector("#form_grupo").removeAttribute("action");
+//     document.querySelector("#form_grupo").setAttribute("action",`/grupo/${operacion}`);    
 // }
 
 // // Función que restablece todo el form
-// function limpiar_form_grupo_proyectos(){
+// function limpiar_form_grupo(){
 //     // Limpia los valores del form
-//     $('#form_grupo_proyectos')[0].reset();
+//     $('#form_grupo')[0].reset();
 //     // Quita los mensajes de error y limpia los valodes del form
-//     proceso_validacion_grupo_proyectos.resetForm();
+//     proceso_validacion_grupo.resetForm();
 //     // Quita los estilos de error de los inputs
-//     $('#form_grupo_proyectos').find(".is-invalid").removeClass("is-invalid");
+//     $('#form_grupo').find(".is-invalid").removeClass("is-invalid");
 // }
