@@ -31,6 +31,7 @@ function guardar_datos_espacio_trabajo(){
                     // Despues de crearse el registro en BD se el select
                     cargar_select_espacios_trabajo().then(() => {
                         select_espacios_trabajo.value = res.id_creado
+                        select_espacios_trabajo.dispatchEvent(new Event('change'))
                     });
                 // Si no, solo se le cambia el nombre al option
                 }else{

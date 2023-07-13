@@ -276,7 +276,8 @@
     </aside>
 
     <!-- CONTENIDO DE LA PAGINA -->
-    <div class="content-wrapper" style="background-color: white;min-height: 1304.06px;border: 3px solid #a7a7a7;">
+    <!-- <div class="content-wrapper" style="background-color: white;min-height: 1304.06px;border: 3px solid #a7a7a7;"> -->
+    <div class="content-wrapper">
 
       <section class="content p-2">
         <div id="contenedor_paginas">

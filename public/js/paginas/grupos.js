@@ -169,17 +169,27 @@ function cargar_grupos(id_tablero_grupo){
                         border-color: #ff0017;
                     "><h5>Este tablero está vacío</h5></div>`;
                 }
-
+                
+                let icono_colapso = 'minus';
+                let calse_colapso =  'collapsed-show';
                 // creando el la lista de grupo existentes
                 res.forEach(grupo => {
+                    
+                    if(grupo.estatus_colapso == 1){
+                        icono_colapso = 'plus';
+                        calse_colapso =  '';
+                    }else{
+                        icono_colapso = 'minus';
+                        calse_colapso =  'collapsed-show';
+                    }
                     contenedor_grupos_creados.innerHTML += `
-                    <div class="card collapsed-card" style="border-right: 4px solid #bcbcbc; border-bottom: 4px solid #bcbcbc;">
+                    <div class="card" style="border-right: 4px solid #bcbcbc; border-bottom: 4px solid #bcbcbc;">
                         <div class="card-header" style="background-color: ${grupo.color_grupo}">
                             <div class="row">
                                 <div class="input-group col-6">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn text-white btn_control_colapsar_card" data-card-widget="collapse">
-                                            <i class="fas fa-plus"></i>
+                                            <i class="fas fa-${icono_colapso}"></i>
                                         </button>
                                     </div>
                                     <input type="text" class="form-control elemento_titulo_grupo text-white" placeholder="Nombre grupo" value="${grupo.nombre_grupo}">
@@ -198,65 +208,55 @@ function cargar_grupos(id_tablero_grupo){
                             </div>
                         </div>
             
-                        <div class="card-body collapsed-show" style="display: block; padding:4px;">
+                        <div class="card-body ${calse_colapso}" style="display: block; padding:4px;">
                             <div id="jsgrid_grupo_${grupo.id_grupo}"></div>
-                            <table class="table table-bordered table-hover" id="jsGrid">
+                            <table class="table table-bordered table-hover text-center" id="" style="border-left: 6px solid ${grupo.color_grupo}"">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>User</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Reason</th>
+                                        <th class="d-none">id_proyecto</th>
+                                        <th class="d-none">id_grupo</th>
+                                        <th class="d-none">usuario_creador</th>
+                                        <th class="d-none">privacidad</th>
+                                        <th class="d-none">activo</th>
+                                        <th>Proyecto</th>
+                                        <th>Personas</th>
+                                        <th>Estado</th>
+                                        <th>Fecha incio</th>
+                                        <th>Fecha fin</th>
+                                        <th>Descripción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>982</td>
-                                        <td>Rocky Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td>Denied</td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr class="expandable-body d-none">
-                                        <td colspan="5">
-                                            <table class="table table-bordered table-hover" style="display: none;">
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Company</th>
-                                                        <th>Contact</th>
-                                                        <th>Country</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alfreds Futterkiste</td>
-                                                        <td>Maria Anders</td>
-                                                        <td>Germany</td>
-                                                    </tr>
-                                                    <tr class="expandable-body">
-                                                        <td>Centro comercial Moctezuma</td>
-                                                        <td>Francisco Chang</td>
-                                                        <td>Mexico</td>
-                                                    </tr>
-                                                    <tr class="expandable-body">
-                                                        <td colspan="3">
-                                                            <p>
-                                                                Lorem Ipsum is simply dummy text of the printing and
-                                                                typesetting industry. Lorem Ipsum has been the
-                                                                industry's standard dummy text ever since the 1500s,
-                                                                when an unknown printer took a galley of type and
-                                                                scrambled it to make a type specimen book. It has
-                                                                survived not only five centuries, but also the leap into
-                                                                electronic typesetting, remaining essentially unchanged.
-                                                                It was popularised in the 1960s with the release of
-                                                                Letraset sheets containing Lorem Ipsum passages, and
-                                                                more recently with desktop publishing software like
-                                                                Aldus PageMaker including versions of Lorem Ipsum.
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                    <tr>
+                                        <td class="d-none">celda</td>
+                                        <td class="d-none">celda</td>
+                                        <td class="d-none">celda</td>
+                                        <td class="d-none">celda</td>
+                                        <td class="d-none">celda</td>
+                                        <td><input type="text" name="" id="" class="form-control"></td>
+                                        <td><button class="btn btn-block"><i class="fas fa-users fa-lg"></i></button>
                                         </td>
+                                        <td class="bg-dark">
+                                            <div class="btn-group show">
+                                                <button type="button" class="btn btn-dark" data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="true">
+
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right show"
+                                                    style="position: absolute; transform: translate3d(-134px, 14px, 0px); top: 0px; left: 0px; will-change: transform;"
+                                                    x-placement="bottom-end">
+                                                    <button class="dropdown-item bg-warning" type="button">En
+                                                        curso</button>
+                                                    <button class="dropdown-item bg-success"
+                                                        type="button">Listo</button>
+                                                    <button class="dropdown-item bg-danger"
+                                                        type="button">Detenido</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><input type="date" name="" id="" class="form-control"></td>
+                                        <td><input type="date" name="" id="" class="form-control"></td>
+                                        <td><textarea name="" id="" rows="1" class="form-control"></textarea></td>
                                     </tr>
                                 </tbody>
                             </table>
