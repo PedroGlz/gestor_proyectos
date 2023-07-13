@@ -1,5 +1,7 @@
 // validar_grupo()
 
+contenedor_grupos_creados.addEventListener('click', (event) => {console.log(event.target)});
+
 // /* FUNCIONES */
 function mostrar_sistema_proyectos(id_tablero){
     limpiar_contenedor_paginas()
@@ -209,7 +211,7 @@ function cargar_grupos(id_tablero_grupo){
                         </div>
             
                         <div class="card-body ${calse_colapso}" style="display: block; padding:4px;">
-                            <div id="jsgrid_grupo_${grupo.id_grupo}"></div>
+                            <div id="jsgrid_grupo_${grupo.id_grupo}" class="table-responsive"></div>
                             <table class="table table-bordered table-hover text-center" id="" style="border-left: 6px solid ${grupo.color_grupo}"">
                                 <thead>
                                     <tr>
@@ -233,16 +235,15 @@ function cargar_grupos(id_tablero_grupo){
                                         <td class="d-none">celda</td>
                                         <td class="d-none">celda</td>
                                         <td class="d-none">celda</td>
-                                        <td><input type="text" name="" id="" class="form-control"></td>
+                                        <td><input type="text" name="" id="" class="form-control grupo_text"></td>
                                         <td><button class="btn btn-block"><i class="fas fa-users fa-lg"></i></button>
                                         </td>
-                                        <td class="bg-dark">
-                                            <div class="btn-group show">
-                                                <button type="button" class="btn btn-dark" data-toggle="dropdown"
+                                        <td>
+                                                <button type="button" class="btn btn-outline-dark btn-block grupo_text" data-toggle="dropdown" style="height:38px"
                                                     aria-haspopup="true" aria-expanded="true">
 
                                                 </button>
-                                                <div class="dropdown-menu dropdown-menu-right show"
+                                                <div class="dropdown-menu dropdown-menu-right"
                                                     style="position: absolute; transform: translate3d(-134px, 14px, 0px); top: 0px; left: 0px; will-change: transform;"
                                                     x-placement="bottom-end">
                                                     <button class="dropdown-item bg-warning" type="button">En
@@ -252,11 +253,15 @@ function cargar_grupos(id_tablero_grupo){
                                                     <button class="dropdown-item bg-danger"
                                                         type="button">Detenido</button>
                                                 </div>
-                                            </div>
                                         </td>
                                         <td><input type="date" name="" id="" class="form-control"></td>
                                         <td><input type="date" name="" id="" class="form-control"></td>
                                         <td><textarea name="" id="" rows="1" class="form-control"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="" id="" class="form-control" placeholder="+ Agregar elemento"></td>
+                                        <td colspan="5">
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
