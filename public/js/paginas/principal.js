@@ -23,8 +23,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const btn_catalogo_tipos_usuario = document.querySelector('#btn_catalogo_tipos_usuario');
 
     /* LLAMADO A FUNCIONES */
-    expandir_cards_proyectos()
-    cargar_select_espacios_trabajo()
+    expandir_cards_actividades()
+    // cargar_select_espacios_trabajo()
+    cargar_lista_tableros(event.target.value)
     cargar_event_listeners_principal()
 });
 
@@ -33,14 +34,14 @@ function cargar_event_listeners_principal(){
     btn_catalogo_usuarios.addEventListener('click', mostrar_catalogo_usuarios);
     btn_catalogo_tipos_usuario.addEventListener('click', mostrar_catalogo_tipos_usuario);
     // espacios de trabajo
-    btn_agregar_espacio_trabajo.addEventListener('click', crear_espacio_trabajo)
-    btn_guardar_espacio_trabajo.addEventListener('click', guardar_datos_espacio_trabajo)
-    btn_editar_espacio_trabajo.addEventListener('click', editar_espacio_trabajo)
-    btn_eliminar_espacio_trabajo.addEventListener('click', eliminar_espacio_trabajo)
-    select_espacios_trabajo.addEventListener('change',(event) => {
-        limpiar_contenedor_paginas()
-        cargar_lista_tableros(event.target.value)
-    });
+    // btn_agregar_espacio_trabajo.addEventListener('click', crear_espacio_trabajo)
+    // btn_guardar_espacio_trabajo.addEventListener('click', guardar_datos_espacio_trabajo)
+    // btn_editar_espacio_trabajo.addEventListener('click', editar_espacio_trabajo)
+    // btn_eliminar_espacio_trabajo.addEventListener('click', eliminar_espacio_trabajo)
+    // select_espacios_trabajo.addEventListener('change',(event) => {
+    //     limpiar_contenedor_paginas()
+    //     cargar_lista_tableros(event.target.value)
+    // });
     // tableros
     btn_nuevo_tablero.addEventListener('click', crear_tableros)
     btn_guardar_tablero.addEventListener('click', guardar_datos_tablero)
@@ -79,6 +80,6 @@ function opciones_tablero(event){
     }else if(btn_seleccionado.classList.contains('btn_eliminar_tablero')){
         eliminar_tablero(btn_tablero_lista)
     }else if(btn_seleccionado.classList.contains('btn_tablero_lista')){
-        mostrar_sistema_proyectos(btn_seleccionado.value)
+        mostrar_sistema_actividades(btn_seleccionado.value)
     }
 }

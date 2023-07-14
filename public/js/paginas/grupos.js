@@ -3,14 +3,14 @@
 contenedor_grupos_creados.addEventListener('click', (event) => {console.log(event.target)});
 
 // /* FUNCIONES */
-function mostrar_sistema_proyectos(id_tablero){
+function mostrar_sistema_actividades(id_tablero){
     limpiar_contenedor_paginas()
     document.querySelector("#btn_nuevo_grupo").value = id_tablero;
     cargar_grupos(id_tablero)
     document.querySelector("#vista_grupos").style.display = "";
 }
 
-function expandir_cards_proyectos(){
+function expandir_cards_actividades(){
     let btn_expandir = document.querySelectorAll(".btn_control_colapsar_card");
     btn_expandir.forEach(element => {
         console.log(element)
@@ -212,15 +212,15 @@ function cargar_grupos(id_tablero_grupo){
             
                         <div class="card-body ${calse_colapso}" style="display: block; padding:4px;">
                             <div id="jsgrid_grupo_${grupo.id_grupo}" class="table-responsive"></div>
-                            <table class="table table-bordered table-hover text-center" id="" style="border-left: 6px solid ${grupo.color_grupo}"">
+                            <table class="table table-bordered table-hover text-center tabla_actividades" id="" style="border-left: 6px solid ${grupo.color_grupo}"">
                                 <thead>
                                     <tr>
-                                        <th class="d-none">id_proyecto</th>
+                                        <th class="d-none">id_actividad</th>
                                         <th class="d-none">id_grupo</th>
                                         <th class="d-none">usuario_creador</th>
                                         <th class="d-none">privacidad</th>
                                         <th class="d-none">activo</th>
-                                        <th>Proyecto</th>
+                                        <th>actividad</th>
                                         <th>Personas</th>
                                         <th>Estado</th>
                                         <th>Fecha incio</th>
@@ -236,23 +236,52 @@ function cargar_grupos(id_tablero_grupo){
                                         <td class="d-none">celda</td>
                                         <td class="d-none">celda</td>
                                         <td><input type="text" name="" id="" class="form-control grupo_text"></td>
-                                        <td><button class="btn btn-block"><i class="fas fa-users fa-lg"></i></button>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-block" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-users fa-lg"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                <form class="px-4 py-3">
+                                                  <div class="form-group">
+                                                    <label for="exampleDropdownFormEmail1">Email address</label>
+                                                    <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="exampleDropdownFormPassword1">Password</label>
+                                                    <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <div class="form-check">
+                                                      <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                                                      <label class="form-check-label" for="dropdownCheck">
+                                                        Remember me
+                                                      </label>
+                                                    </div>
+                                                  </div>
+                                                  <button type="submit" class="btn btn-primary">Sign in</button>
+                                                </form>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">New around here? Sign up</a>
+                                                <a class="dropdown-item" href="#">Forgot password?</a>
+                                              </div>
+                                            </div>
                                         </td>
                                         <td>
-                                                <button type="button" class="btn btn-outline-dark btn-block grupo_text" data-toggle="dropdown" style="height:38px"
-                                                    aria-haspopup="true" aria-expanded="true">
+                                            <button type="button" class="btn btn-outline-dark btn-block grupo_text" data-toggle="dropdown" style="height:38px"
+                                                aria-haspopup="true" aria-expanded="true">
 
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right"
-                                                    style="position: absolute; transform: translate3d(-134px, 14px, 0px); top: 0px; left: 0px; will-change: transform;"
-                                                    x-placement="bottom-end">
-                                                    <button class="dropdown-item bg-warning" type="button">En
-                                                        curso</button>
-                                                    <button class="dropdown-item bg-success"
-                                                        type="button">Listo</button>
-                                                    <button class="dropdown-item bg-danger"
-                                                        type="button">Detenido</button>
-                                                </div>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right"
+                                                style="position: absolute; transform: translate3d(-134px, 14px, 0px); top: 0px; left: 0px; will-change: transform;"
+                                                x-placement="bottom-end">
+                                                <button class="dropdown-item bg-warning" type="button">En
+                                                    curso</button>
+                                                <button class="dropdown-item bg-success"
+                                                    type="button">Listo</button>
+                                                <button class="dropdown-item bg-danger"
+                                                    type="button">Detenido</button>
+                                            </div>
                                         </td>
                                         <td><input type="date" name="" id="" class="form-control"></td>
                                         <td><input type="date" name="" id="" class="form-control"></td>

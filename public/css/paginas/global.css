@@ -102,3 +102,7 @@ h3{
   background-color: #0000000d;
   color: white;
 }
+
+.tabla_actividades td{
+  padding: 5px;
+}

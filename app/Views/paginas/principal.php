@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestor de proyectos</title>
+  <title>Gestor de actividades</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -165,51 +165,21 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <div class="sidebar">
         <!-- DATOS DE LUSUARIO -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <!-- <div class="user-panel mt-3 pb-3 mb-1 d-flex">
           <div class="image">
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <span class="text-white"><?= $nombre." ".$apellido_paterno ?></span>
           </div>
-        </div>
-
-        <!-- APARTADO PARA ESPACIOS DE TRABAJO -->
-        <div class="row ml-0">
-          <div class="input-group input-group-sm">
-            <select class="form-control form-control-sidebar bg-dark text-white" id="select_espacios_trabajo">
-              <option value="0" selected>Seleccionar opción</option>
-            </select>
-            <div class="input-group-append">
-              <div class="d-flex">
-                <div class="dropdown mr-1">
-                  <button type="button" class="btn btn-secondary btn-sm rounded-0" data-toggle="dropdown"
-                    aria-expanded="false">
-                    <span class="">...</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" style="color:black" href="#" id="btn_agregar_espacio_trabajo">
-                      <i class="fas fa-plus fa-xs text-secondary"></i>
-                      <span style="font-size:14px"> Agregar espacio de trabajo</span>
-                    </a>
-                    <a class="dropdown-item" style="color:black" href="#" id="btn_editar_espacio_trabajo">
-                      <i class="fas fa-pen fa-xs text-secondary"></i>
-                      <span style="font-size:14px"> Renombrar espacio de trabajo</span>
-                    </a>
-                    <a class="dropdown-item" style="color:black" href="#" id="btn_eliminar_espacio_trabajo">
-                      <i class="fas fa-trash fa-xs text-secondary"></i>
-                      <span style="font-size:14px"> Eliminar espacio de trabajo</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr style="border-bottom: 1px solid #505967;">
+        </div> -->
 
         <!-- BUSCADOR MENU LATERAL -->
+        <div class="form-control-sidebar">
+          <div class="d-flex justify-content-center mt-3 mb-3">
+            <span class="text-white align-middle"><h4>actividades</h4></span>
+          </div>
+        </div>
         <div class="form-inline mb-3">
           <div class="input-group input-group-sm" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar bg-dark text-white" type="search" placeholder="Buscar"
@@ -342,7 +312,7 @@
   <!-- JS PAGINA PRINCIPAL -->
   <script src="js/paginas/global.js"></script>
   <script src="js/paginas/usuarios.js"></script>
-  <script src="js/paginas/proyectos.js"></script>
+  <script src="js/paginas/actividades.js"></script>
   <script src="js/paginas/grupos.js"></script>
   <script src="js/paginas/espacios_trabajo.js"></script>
   <script src="js/paginas/tableros.js"></script>
