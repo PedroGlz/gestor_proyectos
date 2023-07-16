@@ -177,7 +177,7 @@
         <!-- BUSCADOR MENU LATERAL -->
         <div class="form-control-sidebar">
           <div class="d-flex justify-content-center mt-3 mb-3">
-            <span class="text-white align-middle"><h4>actividades</h4></span>
+            <span class="text-white align-middle"><h4>Proyectos</h4></span>
           </div>
         </div>
         <div class="form-inline mb-3">
@@ -190,16 +190,16 @@
               </button>
             </div>
             <div class="input-group-append">
-              <button class="btn btn-success btn-sm rounded-0" type="button" id="btn_nuevo_tablero">
+              <button class="btn btn-success btn-sm rounded-0" type="button" id="btn_nuevo_proyecto">
                 <span>+</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- LISTA DE TABLEROS -->
+        <!-- LISTA DE PROYECTOS -->
         <div class="row">
-          <div class="col-12 form-control-sidebar" id="contenedor_lista_tableros">
+          <div class="col-12 form-control-sidebar" id="contenedor_lista_proyectos">
             <p class="text-center">Selecciona algún espacio de trabajo</p>
           </div>
         </div>
@@ -253,7 +253,7 @@
         <div id="contenedor_paginas">
           <!-- Modales menu -->
           <?php include('espacios_trabajo.php'); ?>
-          <?php include('tableros.php'); ?>
+          <?php include('proyectos.php'); ?>
           <!-- Vistas catalogos -->
           <div class="vista_sistema" id="vista_catalogo_usuarios" style="display:none">
             <?php include('usuarios.php'); ?>
@@ -315,7 +315,7 @@
   <script src="js/paginas/actividades.js"></script>
   <script src="js/paginas/grupos.js"></script>
   <script src="js/paginas/espacios_trabajo.js"></script>
-  <script src="js/paginas/tableros.js"></script>
+  <script src="js/paginas/proyectos.js"></script>
   <script src="js/paginas/principal.js"></script>
 
 </body>

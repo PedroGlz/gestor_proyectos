@@ -1,32 +1,31 @@
 <?php namespace App\Controllers;
 
-use App\Models\Grupos_Mdl;
+use App\Models\Actividades_Mdl;
 use App\Controllers\BaseController;
 
-class Grupos extends BaseController
+class Actividades extends BaseController
 {
     public function show($id = null){
-        $grupos_mdl = new Grupos_Mdl();
-        return (json_encode($grupos_mdl->grupos_por_proyecto($id)));
+        $actividades_mdl = new Actividades_Mdl();
+        return (json_encode($actividades_mdl->actividades_por_proyecto($id)));
     }
 
     public function create(){
-        $grupos_mdl = new Grupos_Mdl();
+        $actividades_mdl = new Actividades_Mdl();
         $session = session();
         
         $data = [
-            'id_proyecto' => $this->request->getPost('id_proyecto'),
-            'nombre_grupo' => "",
-            'color_grupo' => "#".$this->hexadecimalAzar(6),
+            'id_grupo' => $this->request->getPost('id_grupo'),
+            'nombre_actividad' => "",
             'usuario_creador' => $session->id_usuario,
             'privacidad' => "0",
             'activo' => 1,
             'fecha_creacion' => date("Y-m-d H:i:s")
         ];
 
-        $save = $grupos_mdl->insert($data);
+        $save = $actividades_mdl->insert($data);
 
-        $id_creado = $grupos_mdl->getInsertID();
+        $id_creado = $actividades_mdl->getInsertID();
 
         // Para que entre al succes del ajax
         if($save != false){
@@ -37,32 +36,32 @@ class Grupos extends BaseController
     }
 
     public function update(){
-        $grupos_mdl = new Grupos_Mdl();
+        $actividades_mdl = new Actividades_Mdl();
         $session = session();
         
-        $id_grupo = $this->request->getPost('id_grupo');
+        $id_actividad = $this->request->getPost('id_actividad');
        
         $data = [
-            'nombre_grupo' => $this->request->getPost('nombre_grupo'),
-            'color_grupo' => $this->request->getPost('color_grupo'),
+            'nombre_actividad' => $this->request->getPost('nombre_actividad'),
+            'color_actividad' => $this->request->getPost('color_actividad'),
             'fecha_modificacion' => date("Y-m-d H:i:s")
         ];
 
         // Actualizando la BD
-        $update = $grupos_mdl->update($id_grupo,$data);
+        $update = $actividades_mdl->update($id_actividad,$data);
         
         // Para que entre al succes del ajax
         if($update != false){
-            return json_encode(array("status" => true, "data" => $data, "id_grupo" => $id_grupo));
+            return json_encode(array("status" => true, "data" => $data, "id_actividad" => $id_actividad));
         }else{
-            return json_encode(array("status" => false, "data" => $data, "id_grupo" => "0"));
+            return json_encode(array("status" => false, "data" => $data, "id_actividad" => "0"));
         }
     }
     
     public function delete($id = null){
         if($id == null){ return json_encode(array("status" => false)); }
 
-        $grupos_mdl = new Grupos_Mdl();
+        $actividades_mdl = new Actividades_Mdl();
         $session = session();
                
         // $data = [
@@ -71,8 +70,8 @@ class Grupos extends BaseController
         // ];
 
         // Actualizando la BD
-        // $update = $grupos_mdl->update($id,$data);
-        $delete = $grupos_mdl->delete(['id_grupo' => $id]);
+        // $update = $actividades_mdl->update($id,$data);
+        $delete = $actividades_mdl->delete(['id_actividad' => $id]);
         
         // Para que entre al succes del ajax
         if($delete != false){
@@ -98,15 +97,14 @@ class Grupos extends BaseController
     }
 
     public function set_estatus_colpaso(){
-        $grupos_mdl = new Grupos_Mdl();
+        $actividades_mdl = new Actividades_Mdl();
         $session = session();
         
-        $id_grupo = $this->request->getPost('id_grupo');
+        $id_actividad = $this->request->getPost('id_actividad');
        
         // Actualizando la BD
-        $update = $grupos_mdl->update($id_grupo,[
-            "estatus_colapso" => $this->request->getPost('estatus'),
-            'fecha_modificacion' => date("Y-m-d H:i:s")
+        $update = $actividades_mdl->update($id_actividad,[
+            "estatus_colapso" => $this->request->getPost('estatus')
         ]);
         
         // Para que entre al succes del ajax
@@ -117,16 +115,15 @@ class Grupos extends BaseController
         }
     }
 
-    public function set_color_grupo(){
-        $grupos_mdl = new Grupos_Mdl();
+    public function set_color_actividad(){
+        $actividades_mdl = new Actividades_Mdl();
         $session = session();
         
-        $id_grupo = $this->request->getPost('id_grupo');
+        $id_actividad = $this->request->getPost('id_actividad');
        
         // Actualizando la BD
-        $update = $grupos_mdl->update($id_grupo,[
-            "color_grupo" => $this->request->getPost('color'),
-            'fecha_modificacion' => date("Y-m-d H:i:s")
+        $update = $actividades_mdl->update($id_actividad,[
+            "color_actividad" => $this->request->getPost('color')
         ]);
         
         // Para que entre al succes del ajax
@@ -137,16 +134,15 @@ class Grupos extends BaseController
         }
     }
 
-    public function set_nombre_grupo(){
-        $grupos_mdl = new Grupos_Mdl();
+    public function set_nombre_actividad(){
+        $actividades_mdl = new Actividades_Mdl();
         $session = session();
         
-        $id_grupo = $this->request->getPost('id_grupo');
+        $id_actividad = $this->request->getPost('id_actividad');
        
         // Actualizando la BD
-        $update = $grupos_mdl->update($id_grupo,[
-            "nombre_grupo" => $this->request->getPost('nombre'),
-            'fecha_modificacion' => date("Y-m-d H:i:s")
+        $update = $actividades_mdl->update($id_actividad,[
+            "nombre_actividad" => $this->request->getPost('nombre')
         ]);
         
         // Para que entre al succes del ajax
@@ -157,16 +153,15 @@ class Grupos extends BaseController
         }
     }
 
-    public function set_privacidad_grupo(){
-        $grupos_mdl = new Grupos_Mdl();
+    public function set_privacidad_actividad(){
+        $actividades_mdl = new Actividades_Mdl();
         $session = session();
         
-        $id_grupo = $this->request->getPost('id_grupo');
+        $id_actividad = $this->request->getPost('id_actividad');
        
         // Actualizando la BD
-        $update = $grupos_mdl->update($id_grupo,[
-            "privacidad" => $this->request->getPost('privacidad'),
-            'fecha_modificacion' => date("Y-m-d H:i:s"),
+        $update = $actividades_mdl->update($id_actividad,[
+            "privacidad" => $this->request->getPost('privacidad')
         ]);
         
         // Para que entre al succes del ajax
@@ -175,5 +170,13 @@ class Grupos extends BaseController
         }else{
             return json_encode(array("status" => false));
         }
+    }
+
+    public function actividades_por_grupo($id = null){
+        $actividades_mdl = new Actividades_Mdl();
+        
+        if($id == null){ return json_encode(array("status" => false)); }
+
+        return (json_encode($actividades_mdl->actividades_por_grupo($id)));
     }
 }

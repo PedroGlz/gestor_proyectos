@@ -29,7 +29,7 @@ class Database extends Config
         'hostname' => '127.0.0.1',
         'username' => 'root',
         'password' => '',
-        'database' => 'etic_gestor_db',
+        'database' => 'sicap_system_db',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,

@@ -44,16 +44,28 @@ $routes->post('/espacios_trabajo/create', 'Espacios_de_trabajo::create');
 $routes->post('/espacios_trabajo/update', 'Espacios_de_trabajo::update');
 $routes->get('/espacios_trabajo/delete/(:any)', 'Espacios_de_trabajo::delete/$1');
 // TABLEROS
-$routes->get('/tableros/show/(:any)', 'Tableros::show/$1');
-$routes->post('/tableros/create', 'Tableros::create');
-$routes->post('/tableros/update', 'Tableros::update');
-$routes->get('/tableros/delete/(:any)', 'Tableros::delete/$1');
-// TABLEROS
+$routes->get('/proyectos/show', 'Proyectos::show');
+$routes->post('/proyectos/create', 'Proyectos::create');
+$routes->post('/proyectos/update', 'Proyectos::update');
+$routes->get('/proyectos/delete/(:any)', 'Proyectos::delete/$1');
+// GRUPOS
 $routes->get('/grupos/show/(:any)', 'Grupos::show/$1');
 $routes->post('/grupos/create', 'Grupos::create');
 $routes->post('/grupos/update', 'Grupos::update');
 $routes->get('/grupos/delete/(:any)', 'Grupos::delete/$1');
-
+$routes->post('/grupos/set_estatus_colpaso', 'Grupos::set_estatus_colpaso');
+$routes->post('/grupos/set_color_grupo', 'Grupos::set_color_grupo');
+$routes->post('/grupos/set_nombre_grupo', 'Grupos::set_nombre_grupo');
+$routes->post('/grupos/set_privacidad_grupo', 'Grupos::set_privacidad_grupo');
+// ACTIVIDADES
+$routes->post('/actividades/create', 'Actividades::create');
+$routes->get('/actividades/actividades_por_grupo/(:any)', 'Actividades::actividades_por_grupo/$1');
+$routes->get('/actividades/show/(:any)', 'Actividades::show/$1');
+$routes->post('/actividades/update', 'Actividades::update');
+$routes->get('/actividades/delete/(:any)', 'Actividades::delete/$1');
+$routes->post('/actividades/set_color_grupo', 'Actividades::set_color_grupo');
+$routes->post('/actividades/set_nombre_grupo', 'Actividades::set_nombre_grupo');
+$routes->post('/actividades/set_privacidad_grupo', 'Actividades::set_privacidad_grupo');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const btn_eliminar_espacio_trabajo = document.querySelector("#btn_eliminar_espacio_trabajo");
     const btn_guardar_espacio_trabajo = document.querySelector("#btn_guardar_espacio_trabajo");
     const select_espacios_trabajo = document.querySelector("#select_espacios_trabajo");
-    /* variables elementos tableros */
-    const btn_nuevo_tablero = document.querySelector("#btn_nuevo_tablero");
-    const contenedor_lista_tableros = document.querySelector("#contenedor_lista_tableros");
-    const btn_guardar_tablero = document.querySelector("#btn_guardar_tablero");
+    /* variables elementos proyectos */
+    const btn_nuevo_proyecto = document.querySelector("#btn_nuevo_proyecto");
+    const contenedor_lista_proyectos = document.querySelector("#contenedor_lista_proyectos");
+    const btn_guardar_proyecto = document.querySelector("#btn_guardar_proyecto");
     /* variables elementos Grupos */
     const btn_nuevo_grupo = document.querySelector("#btn_nuevo_grupo");
     const contenedor_grupos_creados = document.querySelector("#contenedor_grupos_creados");
@@ -23,9 +23,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const btn_catalogo_tipos_usuario = document.querySelector('#btn_catalogo_tipos_usuario');
 
     /* LLAMADO A FUNCIONES */
-    expandir_cards_actividades()
     // cargar_select_espacios_trabajo()
-    cargar_lista_tableros(event.target.value)
+    cargar_lista_proyectos()
     cargar_event_listeners_principal()
 });
 
@@ -40,12 +39,12 @@ function cargar_event_listeners_principal(){
     // btn_eliminar_espacio_trabajo.addEventListener('click', eliminar_espacio_trabajo)
     // select_espacios_trabajo.addEventListener('change',(event) => {
     //     limpiar_contenedor_paginas()
-    //     cargar_lista_tableros(event.target.value)
+    //     cargar_lista_proyectos(event.target.value)
     // });
-    // tableros
-    btn_nuevo_tablero.addEventListener('click', crear_tableros)
-    btn_guardar_tablero.addEventListener('click', guardar_datos_tablero)
-    contenedor_lista_tableros.addEventListener('click',(event) => {opciones_tablero(event)});
+    // proyectos
+    btn_nuevo_proyecto.addEventListener('click', crear_proyecto)
+    btn_guardar_proyecto.addEventListener('click', guardar_datos_proyecto)
+    contenedor_lista_proyectos.addEventListener('click',(event) => {opciones_proyecto(event)});
     // Grupos
     btn_nuevo_grupo.addEventListener('click',(event) => {crear_grupo(event)});
 }
@@ -59,6 +58,28 @@ function mostrar_catalogo_tipos_usuario() {
     limpiar_contenedor_paginas()
 }
 
+function mostrar_informacion_proyecto(id_proyecto){
+    limpiar_contenedor_paginas()
+    document.querySelector("#btn_nuevo_grupo").value = id_proyecto;
+    cargar_grupos(id_proyecto)
+    document.querySelector("#vista_grupos").style.display = "";
+}
+
+function opciones_proyecto(event){
+    // console.log(event.target)
+    let btn_seleccionado = event.target;
+    let btn_proyecto_lista = btn_seleccionado.parentElement.parentElement.previousElementSibling;
+
+    if(btn_seleccionado.classList.contains('btn_renombrar_proyecto')){
+        editar_proyecto(btn_proyecto_lista)
+    }else if(btn_seleccionado.classList.contains('btn_eliminar_proyecto')){
+        eliminar_proyecto(btn_proyecto_lista)
+    }else if(btn_seleccionado.classList.contains('btn_proyecto_lista')){
+        mostrar_informacion_proyecto(btn_seleccionado.value)
+    }
+}
+
+
 function limpiar_contenedor_paginas(){
     let elementos_contenedor_paginas = document.querySelectorAll(".vista_sistema");
     
@@ -68,18 +89,4 @@ function limpiar_contenedor_paginas(){
     });
 
     console.log("limpiado ya")
-}
-
-function opciones_tablero(event){
-    console.log(event.target)
-    let btn_seleccionado = event.target;
-    let btn_tablero_lista = btn_seleccionado.parentElement.parentElement.previousElementSibling;
-
-    if(btn_seleccionado.classList.contains('btn_renombrar_tablero')){
-        editar_tablero(btn_tablero_lista)
-    }else if(btn_seleccionado.classList.contains('btn_eliminar_tablero')){
-        eliminar_tablero(btn_tablero_lista)
-    }else if(btn_seleccionado.classList.contains('btn_tablero_lista')){
-        mostrar_sistema_actividades(btn_seleccionado.value)
-    }
 }
