@@ -18,7 +18,7 @@ class Usuarios extends BaseController
         return view('paginas/usuarios');
     }
 
-    public function show($id = null){
+    public function show(){
         $usuarios = new Usuarios_Mdl();
         echo (json_encode($usuarios->get()));
     }

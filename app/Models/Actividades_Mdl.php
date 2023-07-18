@@ -12,10 +12,10 @@ class Actividades_Mdl extends Model
         'id_grupo',
         'usuario_creador',
         'nombre_actividad',
-        'id_estatus',
+        'id_estatus_actividad',
         'fecha_inicio',
         'fecha_fin',
-        'descripcion',
+        'notas',
         'privacidad',
         'activo',
         'fecha_creacion',
@@ -40,15 +40,16 @@ class Actividades_Mdl extends Model
             id_grupo,
             usuario_creador,
             nombre_actividad,
-            id_estatus,
+            id_estatus_actividad,
             fecha_inicio,
             fecha_fin,
-            descripcion,
+            notas,
             privacidad,
             activo,
             fecha_creacion,
             fecha_modificacion,
-            (SELECT color FROM estatus WHERE estatus.id_estatus = actividades.id_estatus) AS color_estatus
+            (SELECT color FROM estatus_actividad WHERE estatus_actividad.id_estatus_actividad = actividades.id_estatus_actividad) AS color_estatus,
+            (SELECT nombre_estatus FROM estatus_actividad WHERE estatus_actividad.id_estatus_actividad = actividades.id_estatus_actividad) AS nombre_estatus
         ')->where(['id_grupo' => $id,'activo' => '1'])->findAll();
     }
 }

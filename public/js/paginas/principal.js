@@ -1,3 +1,7 @@
+// Variable que contiene las opciones para cambiar el estatus a una actividad
+var opciones_estatus_actividad = '';
+var opciones_usuarios = '';
+
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("ya cargo")
     /* Banderillas para la carga de los js catalogos */
@@ -24,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     /* LLAMADO A FUNCIONES */
     // cargar_select_espacios_trabajo()
+    menu_estatus_actividad()
+    select_usuarios()
     cargar_lista_proyectos()
     cargar_event_listeners_principal()
 });
@@ -58,8 +64,9 @@ function mostrar_catalogo_tipos_usuario() {
     limpiar_contenedor_paginas()
 }
 
-function mostrar_informacion_proyecto(id_proyecto){
+function mostrar_informacion_proyecto(id_proyecto, nombre_proyecto){
     limpiar_contenedor_paginas()
+    document.querySelector("#titulo_nombre_proyecto").textContent = nombre_proyecto;
     document.querySelector("#btn_nuevo_grupo").value = id_proyecto;
     cargar_grupos(id_proyecto)
     document.querySelector("#vista_grupos").style.display = "";
@@ -75,10 +82,9 @@ function opciones_proyecto(event){
     }else if(btn_seleccionado.classList.contains('btn_eliminar_proyecto')){
         eliminar_proyecto(btn_proyecto_lista)
     }else if(btn_seleccionado.classList.contains('btn_proyecto_lista')){
-        mostrar_informacion_proyecto(btn_seleccionado.value)
+        mostrar_informacion_proyecto(btn_seleccionado.value, btn_seleccionado.textContent)
     }
 }
-
 
 function limpiar_contenedor_paginas(){
     let elementos_contenedor_paginas = document.querySelectorAll(".vista_sistema");
@@ -89,4 +95,56 @@ function limpiar_contenedor_paginas(){
     });
 
     console.log("limpiado ya")
+}
+
+function menu_estatus_actividad(){
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `/estatus_actividad/show`,
+            type: "GET",
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                res.forEach(estatus => {
+                    opciones_estatus_actividad += `<button class="dropdown-item"
+                        type="button"
+                        style="background-color:${estatus.color}"
+                        value="${estatus.id_estatus_actividad}"
+                        onclick="set_estatus_actividad(this.value, '${estatus.color}', event)">
+                            ${estatus.nombre_estatus}
+                    </button>`;
+                });
+            },
+            error: function (err) {
+                reject()
+            }
+        });
+    });
+}
+
+function select_usuarios(){
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `/usuarios/show`,
+            type: "GET",
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                opciones_usuarios = `<select class="custom-select" id="" aria-label="Example select with button addon">
+                    <option value="">Seleccionar usuario</option>
+                `;
+
+                res.forEach(usuario => {
+                    opciones_usuarios += `<option value="${usuario.id_usuario}">${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}</option>`;
+                });
+
+                opciones_usuarios += `</select>`;
+            },
+            error: function (err) {
+                reject()
+            }
+        });
+    });
 }

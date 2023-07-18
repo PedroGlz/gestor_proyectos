@@ -175,7 +175,7 @@
         </div> -->
 
         <!-- BUSCADOR MENU LATERAL -->
-        <div class="form-control-sidebar">
+        <div class="form-control-sidebar" style="background-color: transparent;border: none;">
           <div class="d-flex justify-content-center mt-3 mb-3">
             <span class="text-white align-middle"><h4>Proyectos</h4></span>
           </div>

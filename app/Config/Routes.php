@@ -60,12 +60,20 @@ $routes->post('/grupos/set_privacidad_grupo', 'Grupos::set_privacidad_grupo');
 // ACTIVIDADES
 $routes->post('/actividades/create', 'Actividades::create');
 $routes->get('/actividades/actividades_por_grupo/(:any)', 'Actividades::actividades_por_grupo/$1');
-$routes->get('/actividades/show/(:any)', 'Actividades::show/$1');
-$routes->post('/actividades/update', 'Actividades::update');
 $routes->get('/actividades/delete/(:any)', 'Actividades::delete/$1');
-$routes->post('/actividades/set_color_grupo', 'Actividades::set_color_grupo');
-$routes->post('/actividades/set_nombre_grupo', 'Actividades::set_nombre_grupo');
-$routes->post('/actividades/set_privacidad_grupo', 'Actividades::set_privacidad_grupo');
+$routes->post('/actividades/set_nombre_actividad', 'Actividades::set_nombre_actividad');
+$routes->post('/actividades/set_fecha_inicio', 'Actividades::set_fecha_inicio');
+$routes->post('/actividades/set_fecha_fin', 'Actividades::set_fecha_fin');
+$routes->post('/actividades/set_notas_actividad', 'Actividades::set_notas_actividad');
+$routes->post('/actividades/set_estatus_actividad', 'Actividades::set_estatus_actividad');
+$routes->post('/actividades/agregar_usuario_actividad', 'Actividades::agregar_usuario_actividad');
+$routes->get('/actividades/eliminar_usuario_actividad/(:any)', 'Actividades::eliminar_usuario_actividad/$1');
+$routes->post('/usuarios_actividad/usuarios_por_actividad', 'Usuarios_actividad::usuarios_por_actividad');
+// ESTATUS
+$routes->get('/estatus_actividad/show', 'Estatus_actividad::show');
+$routes->post('/estatus_actividad/create', 'Estatus_actividad::create');
+$routes->post('/estatus_actividad/update', 'Estatus_actividad::update');
+$routes->get('/estatus_actividad/delete/(:any)', 'Estatus_actividad::delete/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
