@@ -250,7 +250,7 @@
     <div class="content-wrapper">
 
       <section class="content p-2">
-        <div id="contenedor_paginas">
+        <div id="contenedor_paginas" class="container-fluid">
           <!-- Modales menu -->
           <?php include('espacios_trabajo.php'); ?>
           <?php include('proyectos.php'); ?>
@@ -268,13 +268,13 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="main-footer text-xs">
+    <!-- <footer class="main-footer text-xs">
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.2.0
       </div>
-    </footer>
+    </footer> -->
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">

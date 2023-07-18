@@ -31,7 +31,7 @@ function crear_actividad(id_grupo){
                     </div>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-outline-secondary" data-toggle="dropdown"
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="dropdown"
                         style="height:38px; width:111px;" aria-haspopup="true" aria-expanded="true"
                         value="${res.id_creado}">
                             Sin iniciar

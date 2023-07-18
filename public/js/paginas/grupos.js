@@ -172,29 +172,29 @@ function cargar_grupos(id_proyecto){
                                         </button>
                                     </div>
                                     <input type="text" class="form-control elemento_titulo_grupo" placeholder="Nombre grupo" value="${grupo.nombre_grupo}" onblur="set_nombre_grupo(${grupo.id_grupo}, this.value)">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="
+                                    <span class="align-self-center pl-1 pr-1" id="inputGroup-sizing-sm" style="
                                         background-color: #ffffff00;
                                         border: none;
                                         color: white;
-                                    ">Fecha inicio:</span>
+                                    "><small>Fecha inicio:</small></span>
 
-                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="
+                                    <span class="align-self-center pl-1 pr-1" id="inputGroup-sizing-sm" style="
                                         background-color: #ffffff00;
                                         border: none;
                                         color: white;
-                                    ">-- / -- / ----</span>
+                                    "><small>-- / -- / ----</small></span>
 
-                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="
+                                    <span class="align-self-center pl-3 pr-1" id="inputGroup-sizing-sm" style="
                                         background-color: #ffffff00;
                                         border: none;
                                         color: white;
-                                    ">Fecha fin:</span>
+                                    "><small>Fecha fin:</small></span>
 
-                                    <span class="input-group-text" id="inputGroup-sizing-sm" style="
+                                    <span class="align-self-center pl-1 pr-1" id="inputGroup-sizing-sm" style="
                                         background-color: #ffffff00;
                                         border: none;
                                         color: white;
-                                    ">-- / -- / ----</span>
+                                    "><small>-- / -- / ----</small></span>
                                 </div>
             
                                 <div class="col-3 d-flex justify-content-end">
@@ -237,12 +237,12 @@ function cargar_grupos(id_proyecto){
                                 <thead>
                                     <tr>
                                         <th>Actividad</th>
-                                        <th>Personas</th>
-                                        <th>Estado</th>
-                                        <th>Fecha incio</th>
-                                        <th>Fecha fin</th>
-                                        <th>Notas</th>
-                                        <th></th>
+                                        <th style="width: 95px;">Personas</th>
+                                        <th style="width: 130px;">Estado</th>
+                                        <th style="width: 167px;">Fecha inicio</th>
+                                        <th style="width: 167px;">Fecha fin</th>
+                                        <th style="width: 200px;">Notas</th>
+                                        <th style="width: 26px;"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="cuerpo_tabla_actividades_${grupo.id_grupo}">
@@ -303,7 +303,7 @@ function contenido_tabla_actividades(id_grupo){
                                 </div>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-outline-secondary" data-toggle="dropdown"
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="dropdown"
                                     style="height:38px; width:111px; background-color:${actividad.color_estatus}" aria-haspopup="true" aria-expanded="true"
                                     value="${actividad.id_actividad}">
                                     ${actividad.nombre_estatus}
