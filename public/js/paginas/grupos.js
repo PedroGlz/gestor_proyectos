@@ -92,28 +92,44 @@ function eliminar_grupo(event){
     }
     let card_completo = btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
     
-    $.ajax({
-        url: `grupos/delete/${btn.value}`,
-        type: "GET",
-        dataType: 'json',
-        processData: false,
-        contentType: false,
-        success: function (res) {
-            console.log(res)
-            // Eliminamos el card del DOM
-            card_completo.remove();
+    Swal.fire({
+        title: '<span style="color:red">Eliminar<span>',
+        html: `El grupo de actividades será <b>eliminado permanentemente</b>,<br> <ins>¿Confirma la operación?</ins>`,
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Continuar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `grupos/delete/${btn.value}`,
+                type: "GET",
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    console.log(res)
+                    
+                    if(!res.status){
+                        alertLodading("El grupo de actividades <b>No se puede eliminar</b> ya que <b>contiene actividades.</b>","warning")
+                        return;
+                    }
+                    // Eliminamos el card del DOM
+                    card_completo.remove();
 
-            // Mostramos mensaje de operacion exitosa
-            Toast.fire({
-                icon: 'success',
-                title: 'Eliminado'
-            })
-        },
-        error: function (err) {
-            console.log(err.statusText);
+                    // Mostramos mensaje de operacion exitosa
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Eliminado'
+                    })
+                },
+                error: function (err) {
+                    console.log(err.statusText);
+                }
+            });
         }
-    });
-
+    })
 }
 
 function cargar_grupos(id_proyecto){
@@ -172,29 +188,29 @@ function cargar_grupos(id_proyecto){
                                         </button>
                                     </div>
                                     <input type="text" class="form-control elemento_titulo_grupo" placeholder="Nombre grupo" value="${grupo.nombre_grupo}" onblur="set_nombre_grupo(${grupo.id_grupo}, this.value)">
-                                    <span class="align-self-center pl-1 pr-1" id="inputGroup-sizing-sm" style="
+                                    <span class="align-self-center pl-1 pr-1" style="
                                         background-color: #ffffff00;
                                         border: none;
                                         color: white;
                                     "><small>Fecha inicio:</small></span>
 
-                                    <span class="align-self-center pl-1 pr-1" id="inputGroup-sizing-sm" style="
+                                    <span class="align-self-center pl-1 pr-1" style="
                                         background-color: #ffffff00;
                                         border: none;
                                         color: white;
-                                    "><small>-- / -- / ----</small></span>
+                                    "><small id="fecha_inicio_grupo_${grupo.id_grupo}">${grupo.fecha_inicio}</small></span>
 
-                                    <span class="align-self-center pl-3 pr-1" id="inputGroup-sizing-sm" style="
+                                    <span class="align-self-center pl-3 pr-1" style="
                                         background-color: #ffffff00;
                                         border: none;
                                         color: white;
                                     "><small>Fecha fin:</small></span>
 
-                                    <span class="align-self-center pl-1 pr-1" id="inputGroup-sizing-sm" style="
+                                    <span class="align-self-center pl-1 pr-1" style="
                                         background-color: #ffffff00;
                                         border: none;
                                         color: white;
-                                    "><small>-- / -- / ----</small></span>
+                                    "><small id="fecha_fin_grupo_${grupo.id_grupo}">${grupo.fecha_fin}</small></span>
                                 </div>
             
                                 <div class="col-3 d-flex justify-content-end">

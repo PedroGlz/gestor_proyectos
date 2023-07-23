@@ -97,9 +97,11 @@ class Actividades extends BaseController
             "fecha_inicio" => $this->request->getPost('fecha_inicio')
         ]);
         
+        $fechas = $this->actualizar_fechas($id_actividad);
+
         // Para que entre al succes del ajax
         if($update != false){
-            return json_encode(array("status" => true));
+            return json_encode(array("status" => true, "fechas" => $fechas));
         }else{
             return json_encode(array("status" => false));
         }
@@ -116,9 +118,11 @@ class Actividades extends BaseController
             "fecha_fin" => $this->request->getPost('fecha_fin')
         ]);
         
+        $fechas = $this->actualizar_fechas($id_actividad);
+
         // Para que entre al succes del ajax
         if($update != false){
-            return json_encode(array("status" => true));
+            return json_encode(array("status" => true, "fechas" => $fechas));
         }else{
             return json_encode(array("status" => false));
         }
@@ -168,7 +172,8 @@ class Actividades extends BaseController
             
         $data = [
             "id_usuario" => $this->request->getPost('usuario'),
-            "id_actividad" => $this->request->getPost('id_actividad')
+            "id_actividad" => $this->request->getPost('id_actividad'),
+            'usuario_creador' => $session->id_usuario,
         ];
 
         // Creando registro
@@ -198,5 +203,27 @@ class Actividades extends BaseController
         }else{
             return json_encode(array("status" => false));
         } 
+    }
+
+    public function actualizar_fechas($id_actividad){
+        $db = db_connect();
+        $db->simpleQuery("CALL actualizar_fechas($id_actividad)");
+
+        $id_grupo = $db->query("SELECT id_grupo FROM actividades WHERE id_actividad = $id_actividad")->getRowArray();
+        $id_grupo = $id_grupo['id_grupo'];
+        $id_proyecto = $db->query("SELECT id_proyecto FROM grupos WHERE id_grupo = $id_grupo")->getRowArray();
+        $id_proyecto = $id_proyecto['id_proyecto'];
+
+        $fechas_inicio_grupo  = $db->query("SELECT  DATE_FORMAT(fecha_inicio,'%d/%m/%Y') as fecha_inicio_grupo FROM actividades WHERE id_grupo = $id_grupo ORDER BY fecha_inicio ASC LIMIT 1")->getRowArray();
+        $fechas_fin_grupo  = $db->query("SELECT DATE_FORMAT(fecha_fin,'%d/%m/%Y') as fecha_fin_grupo FROM actividades WHERE id_grupo = $id_grupo ORDER BY fecha_fin DESC LIMIT 1")->getRowArray();
+
+        $fechas_inicio_proyecto  = $db->query("SELECT  DATE_FORMAT(fecha_inicio,'%d/%m/%Y') as fecha_inicio_proyecto FROM grupos WHERE id_proyecto = $id_proyecto ORDER BY fecha_inicio ASC LIMIT 1")->getRowArray();
+        $fechas_fin_proyecto  = $db->query("SELECT DATE_FORMAT(fecha_fin,'%d/%m/%Y') as fecha_fin_proyecto FROM grupos WHERE id_proyecto = $id_proyecto ORDER BY fecha_fin DESC LIMIT 1")->getRowArray();
+
+        return array($fechas_inicio_grupo,$fechas_fin_grupo,$fechas_inicio_proyecto,$fechas_fin_proyecto,"id_grupo" => $id_grupo,"id_proyecto" => $id_proyecto);
+    }
+
+    public function mail(){
+        
     }
 }

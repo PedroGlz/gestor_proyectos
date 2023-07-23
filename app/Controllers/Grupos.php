@@ -1,13 +1,32 @@
 <?php namespace App\Controllers;
 
 use App\Models\Grupos_Mdl;
+use App\Models\Actividades_Mdl;
 use App\Controllers\BaseController;
 
 class Grupos extends BaseController
 {
     public function show($id = null){
         $grupos_mdl = new Grupos_Mdl();
-        return (json_encode($grupos_mdl->grupos_por_proyecto($id)));
+        $session = session();
+        $db = db_connect();
+
+        $id_actividad = $db->query("SELECT id_actividad FROM usuarios_actividad WHERE id_usuario = $session->id_usuario GROUP BY id_actividad")->getResultArray();
+        $array_actividades = [];
+        foreach ($id_actividad as $row) {
+            array_push($array_actividades,$row["id_actividad"]);
+        }
+        // $id_actividad = is_null($id_actividad) ? 0 : $id_actividad['id_actividad'];
+        print_r($array_actividades);
+        return;
+        $id_grupo = $db->query("SELECT id_grupo FROM actividades WHERE id_actividad = $id_actividad")->getRowArray();
+        $id_grupo = is_null($id_grupo) ? 0 : $id_grupo['id_grupo'];
+        // $id_proyecto = $db->query("SELECT id_proyecto FROM grupos WHERE id_grupo = $id_grupo")->getRowArray();
+        // $id_proyecto = is_null($id_proyecto) ? 0 : $id_proyecto['id_proyecto'];
+        
+        $datos_session = datos_session($session);
+        
+        return (json_encode($grupos_mdl->grupos_por_proyecto($id,$id_grupo,$datos_session)));
     }
 
     public function create(){
@@ -17,6 +36,8 @@ class Grupos extends BaseController
         $data = [
             'id_proyecto' => $this->request->getPost('id_proyecto'),
             'nombre_grupo' => "",
+            'fecha_inicio' => "",
+            'fecha_fin' => "",
             'color_grupo' => "#".$this->hexadecimalAzar(6),
             'usuario_creador' => $session->id_usuario,
             'privacidad' => "0",
@@ -60,11 +81,15 @@ class Grupos extends BaseController
     }
     
     public function delete($id = null){
-        if($id == null){ return json_encode(array("status" => false)); }
-
         $grupos_mdl = new Grupos_Mdl();
+        $actividades_mdl = new Actividades_Mdl();
         $session = session();
-               
+        
+        if($id == null){ return json_encode(array("status" => false)); }
+        
+        if(count($actividades_mdl->actividades_por_grupo($id)) > 0){
+            return json_encode(array("status" => false));
+        }
         // $data = [
         //     'activo' => "0",
         //     'fecha_modificacion' => date("Y-m-d H:i:s")

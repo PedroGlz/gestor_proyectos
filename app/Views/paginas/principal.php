@@ -149,8 +149,8 @@
           </a>
         </li>
         <!-- Cerrar sesion Menu -->
-        <li class="nav-item dropstart">
-          <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-sign-out-alt"></i>
           </a>
           <ul class="dropdown-menu">
@@ -207,7 +207,7 @@
         <hr style="border-bottom: 1px solid #505967;">
 
         <!-- APARTADO DE CATALOGOS -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="visibility: <?php echo $tipo_usuario == 1 ? "visible" : "hidden";?>">
           <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-legacy" data-widget="treeview" role="menu"
             data-accordion="false">
             <li class="nav-item">
@@ -232,7 +232,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="#" id="btn_catalogo_estatus_actividad" class="nav-link">
                     <i class="nav-icon fas fa-tags fa-sm"></i>
                     <p> Estatus</p>
                   </a>
@@ -241,6 +241,7 @@
             </li>
           </ul>
         </div>
+        
 
       </div>
     </aside>
@@ -254,13 +255,19 @@
           <!-- Modales menu -->
           <?php include('espacios_trabajo.php'); ?>
           <?php include('proyectos.php'); ?>
+          <!-- Vista grupos y poryectos -->
+          <div class="vista_sistema" id="vista_grupos" style="display:none">
+            <?php include('grupos.php'); ?>
+          </div>
           <!-- Vistas catalogos -->
           <div class="vista_sistema" id="vista_catalogo_usuarios" style="display:none">
             <?php include('usuarios.php'); ?>
           </div>
-          <!-- Vista grupos y poryectos -->
-          <div class="vista_sistema" id="vista_grupos" style="display:none">
-            <?php include('grupos.php'); ?>
+          <div class="vista_sistema" id="vista_catalogo_tipos_usuario" style="display:none">
+            <?php include('tipos_usuario.php'); ?>
+          </div>
+          <div class="vista_sistema" id="vista_catalogo_estatus_actividad" style="display:none">
+            <?php include('estatus_actividad.php'); ?>
           </div>
         </div>
 
@@ -310,10 +317,17 @@
   <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
   <script src="plugins/jquery-validation/additional-methods.min.js"></script>
   <!-- JS PAGINA PRINCIPAL -->
+  <script>
+    let session_id_usuario = '<?php echo $id_usuario;?>'
+    let session_tipo_usuario = '<?php echo $tipo_usuario;?>'
+    var session_es_administrador = session_tipo_usuario == 1;
+  </script>
   <script src="js/paginas/global.js"></script>
   <script src="js/paginas/usuarios.js"></script>
-  <script src="js/paginas/actividades.js"></script>
+  <script src="js/paginas/tipos_usuario.js"></script>
   <script src="js/paginas/grupos.js"></script>
+  <script src="js/paginas/actividades.js"></script>
+  <script src="js/paginas/estatus_actividad.js"></script>
   <script src="js/paginas/espacios_trabajo.js"></script>
   <script src="js/paginas/proyectos.js"></script>
   <script src="js/paginas/principal.js"></script>

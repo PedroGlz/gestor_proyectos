@@ -3,9 +3,99 @@ $('#modal_proyectos').on('hide.bs.modal', limpiar_form_proyectos);
 validar_proyecto()
 
 /* FUNCIONES */
+function cargar_lista_proyectos(){
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `/proyectos/show`,
+            type: "GET",
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                console.log(res)
+                
+                // Limpiando el contenedor de la lista de proyectos
+                contenedor_lista_proyectos.innerHTML=""
+
+                if(res.length == 0){
+                    contenedor_lista_proyectos.innerHTML = `<p class="text-center">Este espacio de trabajo está vacío</p>`;
+                }
+
+                // creando el la lista de proyectos existentes
+                res.forEach(proyecto => {
+                    
+                    if(proyecto.usuario_creador == session_id_usuario || session_es_administrador){
+                        ver_operaciones = "";
+                    }else{
+                        ver_operaciones = "disabled";
+                    }
+                    
+                    contenedor_lista_proyectos.innerHTML += `
+                    <div class="btn-group btn-group-sm w-100" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-dark btn-sm rounded-0 border-0 text-left btn_proyecto_lista" 
+                        id="tab_list_${proyecto.id_proyecto}"
+                        value="${proyecto.id_proyecto}"
+                        privacidad="${proyecto.privacidad}"
+                        onclick="mostrar_informacion_proyecto(event)"
+                        >
+                            <i class="far fa-clipboard"></i>
+                            &nbsp;${proyecto.nombre_proyecto}
+                    </button>
+                    <div class="dropdown">
+                      <button class="btn btn-dark btn-sm rounded-0 border-0 h-100" type="button" data-toggle="dropdown" aria-expanded="false" ${ver_operaciones}>...</button>
+                      <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" style="font-size:14px" value="${proyecto.id_proyecto}" privacidad="${proyecto.privacidad}" onclick="editar_proyecto(event)">
+                            <i class="fas fa-pen fa-xs text-secondary"></i>
+                            &nbsp;Renombrar
+                        </button>
+
+                        <button class="dropdown-item" type="button" style="font-size:14px" value="${proyecto.id_proyecto}" privacidad="${proyecto.privacidad}" onclick="eliminar_proyecto(this.value,'${proyecto.nombre_proyecto}')">
+                            <i class="fas fa-trash fa-xs text-secondary"></i>
+                            &nbsp;Eliminar
+                        </button>
+                      </div>
+                    </div>
+                  </div>`;
+                });
+
+                resolve(res);
+            },
+            error: function (err) {
+                reject(err.statusText)
+            }
+        });
+    });
+}
+
 function crear_proyecto() {
     cambiar_action_form_proyectos('create');
     $('#modal_proyectos').modal('show');
+}
+
+function mostrar_informacion_proyecto(event){
+    let btn = event.target;
+    // COlocando fechas proyecto
+    $.ajax({
+        url: `/proyectos/datos_proyecto`,
+        data: {id_proyecto: btn.value},
+        type: "POST",
+        dataType: 'json',
+        success: function (res) {
+            console.log(res)
+            document.querySelector(`#proyecto_fecha_inicio`).textContent = res[0].fecha_inicio;
+            document.querySelector(`#proyecto_fecha_fin`).textContent = res[0].fecha_fin;
+        },
+        error: function (err) {
+        }
+    });
+
+    limpiar_contenedor_paginas()
+    
+    document.querySelector("#titulo_nombre_proyecto").textContent = btn.textContent;
+    document.querySelector("#btn_nuevo_grupo").value = btn.value;
+    // COlocando fechas proyecto
+    cargar_grupos(btn.value)
+    document.querySelector("#vista_grupos").style.display = "";
 }
 
 function guardar_datos_proyecto(){
@@ -56,8 +146,8 @@ function guardar_datos_proyecto(){
     }
 }
 
-function editar_proyecto(btn){
-    console.log(btn)
+function editar_proyecto(event){
+    let btn = event.target.parentElement.parentElement.previousElementSibling;
 
     cambiar_action_form_proyectos('update');
     
@@ -76,82 +166,46 @@ function editar_proyecto(btn){
     $('#modal_proyectos').modal('show')
 }
 
-function eliminar_proyecto(btn){
-    console.log(btn.value)
-    $.ajax({
-        url: `proyectos/delete/${btn.value}`,
-        type: "GET",
-        dataType: 'json',
-        processData: false,
-        contentType: false,
-        success: function (res) {
-            console.log(res)
+function eliminar_proyecto(id,nombre_proyecto){
+    Swal.fire({
+        title: '<span style="color:red">Eliminar<span>',
+        html: `El proyecto <b>${nombre_proyecto}</b> será <b>eliminado</b> <b>permanentemente</b>,<br> <ins>¿Confirma la operación?</ins>`,
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Continuar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `proyectos/delete/${id}`,
+                type: "GET",
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    console.log(res)
 
-            document.querySelector(`#tab_list_${btn.value}`).parentElement.remove();
+                    if(!res.status){
+                        alertLodading("El proyecto <b>No se puede eliminar</b> ya que <b>contiene actividades.</b>","warning")
+                        return;
+                    }
 
-            // Mostramos mensaje de operacion exitosa
-            Toast.fire({
-                icon: 'success',
-                title: 'Eliminado'
-            })
-        },
-        error: function (err) {
-            console.log(err.statusText);
-        }
-    });
-
-}
-
-function cargar_lista_proyectos(){
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: `/proyectos/show`,
-            type: "GET",
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            success: function (res) {
-                console.log(res)
-                
-                // Limpiando el contenedor de la lista de proyectos
-                contenedor_lista_proyectos.innerHTML=""
-
-                if(res.length == 0){
-                    contenedor_lista_proyectos.innerHTML = `<p class="text-center">Este espacio de trabajo está vacío</p>`;
+                    document.querySelector(`#tab_list_${id}`).parentElement.remove();
+                    limpiar_contenedor_paginas();
+                    // Mostramos mensaje de operacion exitosa
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Eliminado'
+                    })
+                },
+                error: function (err) {
+                    console.log(err.statusText);
                 }
+            });
+        }
+    })
 
-                // creando el la lista de proyectos existentes
-                res.forEach(proyecto => {
-                    contenedor_lista_proyectos.innerHTML += `
-                    <div class="btn-group btn-group-sm w-100" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-dark btn-sm rounded-0 border-0 text-left btn_proyecto_lista" id="tab_list_${proyecto.id_proyecto}" value="${proyecto.id_proyecto}" privacidad="${proyecto.privacidad}">
-                        <i class="far fa-clipboard"></i>
-                        &nbsp;${proyecto.nombre_proyecto}
-                    </button>
-                    <div class="dropdown">
-                      <button class="btn btn-dark btn-sm rounded-0 border-0 h-100" type="button" data-toggle="dropdown" aria-expanded="false">...</button>
-                      <div class="dropdown-menu">
-                        <button class="dropdown-item btn_renombrar_proyecto" type="button" style="font-size:14px" value="${proyecto.id_proyecto}" privacidad="${proyecto.privacidad}">
-                            <i class="fas fa-pen fa-xs text-secondary"></i>
-                            &nbsp;Renombrar
-                        </button>
-
-                        <button class="dropdown-item btn_eliminar_proyecto" type="button" style="font-size:14px" value="${proyecto.id_proyecto}" privacidad="${proyecto.privacidad}">
-                            <i class="fas fa-trash fa-xs text-secondary"></i>
-                            &nbsp;Eliminar
-                        </button>
-                      </div>
-                    </div>
-                  </div>`;
-                });
-
-                resolve(res);
-            },
-            error: function (err) {
-                reject(err.statusText)
-            }
-        });
-    });
 }
 
 function validar_proyecto(){

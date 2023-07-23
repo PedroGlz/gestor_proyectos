@@ -5,9 +5,9 @@ use App\Controllers\BaseController;
 
 class Estatus_actividad extends BaseController
 {
-    public function show(){
-        $estatus_actividad_mdl = new Estatus_actividad_Mdl();
-        return (json_encode($estatus_actividad_mdl->get()));
+    public function show($id = null){
+        $estatus_actividad = new Estatus_actividad_Mdl();        
+        return (json_encode($estatus_actividad->get()));
     }
 
     public function create(){
@@ -15,24 +15,19 @@ class Estatus_actividad extends BaseController
         $session = session();
         
         $data = [
-            'id_proyecto' => $this->request->getPost('id_proyecto'),
-            'nombre_grupo' => "",
-            'color_grupo' => "#".$this->hexadecimalAzar(6),
-            'usuario_creador' => $session->id_usuario,
-            'privacidad' => "0",
+            'nombre_estatus' => $this->request->getPost('nombre_estatus'),
+            'color' => $this->request->getPost('color'),
             'activo' => 1,
             'fecha_creacion' => date("Y-m-d H:i:s")
         ];
 
         $save = $estatus_actividad_mdl->insert($data);
 
-        $id_creado = $estatus_actividad_mdl->getInsertID();
-
         // Para que entre al succes del ajax
         if($save != false){
-            return json_encode(array("status" => true, "id_creado" => $id_creado, "data" => $data));
+            return json_encode(array("status" => true));
         }else{
-            return json_encode(array("status" => false, "id_creado" => 0, "data" => $data));
+            return json_encode(array("status" => false));
         }
     }
 
@@ -40,22 +35,22 @@ class Estatus_actividad extends BaseController
         $estatus_actividad_mdl = new Estatus_actividad_Mdl();
         $session = session();
         
-        $id_grupo = $this->request->getPost('id_grupo');
+        $id_estatus_actividad = $this->request->getPost('id_estatus_actividad');
        
         $data = [
-            'nombre_grupo' => $this->request->getPost('nombre_grupo'),
-            'color_grupo' => $this->request->getPost('color_grupo'),
+            'nombre_estatus' => $this->request->getPost('nombre_estatus'),
+            'color' => $this->request->getPost('color'),
             'fecha_modificacion' => date("Y-m-d H:i:s")
         ];
 
         // Actualizando la BD
-        $update = $estatus_actividad_mdl->update($id_grupo,$data);
+        $update = $estatus_actividad_mdl->update($id_estatus_actividad,$data);
         
         // Para que entre al succes del ajax
         if($update != false){
-            return json_encode(array("status" => true, "data" => $data, "id_grupo" => $id_grupo));
+            return json_encode(array("status" => true));
         }else{
-            return json_encode(array("status" => false, "data" => $data, "id_grupo" => "0"));
+            return json_encode(array("status" => false));
         }
     }
     
@@ -72,7 +67,7 @@ class Estatus_actividad extends BaseController
 
         // Actualizando la BD
         // $update = $estatus_actividad_mdl->update($id,$data);
-        $delete = $estatus_actividad_mdl->delete(['id_grupo' => $id]);
+        $delete = $estatus_actividad_mdl->delete(['id_estatus_actividad' => $id]);
         
         // Para que entre al succes del ajax
         if($delete != false){

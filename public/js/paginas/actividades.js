@@ -17,7 +17,7 @@ function crear_actividad(id_grupo){
                         </button>
                         <div class="dropdown-menu p-0" style="min-width:18rem">
                             <form class="px-3 py-2">
-                                <label for="s_usuarios_actividad" class="col-form-label-sm mb-0">Agregar usuario:</label>
+                                <label for="" class="col-form-label-sm mb-0">Agregar usuario:</label>
                                 <div class="input-group input-group-sm">
                                     ${opciones_usuarios}
                                     <div class="input-group-append">
@@ -65,28 +65,40 @@ function crear_actividad(id_grupo){
 }
 
 function eliminar_actividad(id_actividad, event){
-    $.ajax({
-        url: `actividades/delete/${id_actividad}`,
-        type: "GET",
-        dataType: 'json',
-        processData: false,
-        contentType: false,
-        success: function (res) {
-            console.log(res)
-            // Eliminamos la fila del DOM
-            event.target.parentElement.parentElement.remove()
+    let actividad = event.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.value;
+    Swal.fire({
+        title: '<span style="color:red">Eliminar<span>',
+        html: `La actividad <b>${actividad}</b> será <b>eliminada</b> <b>permanentemente</b>,<br> <ins>¿Confirma la operación?</ins>`,
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Continuar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `actividades/delete/${id_actividad}`,
+                type: "GET",
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    console.log(res)
+                    // Eliminamos la fila del DOM
+                    event.target.parentElement.parentElement.remove()
 
-            // Mostramos mensaje de operacion exitosa
-            Toast.fire({
-                icon: 'success',
-                title: 'Eliminado'
-            })
-        },
-        error: function (err) {
-            console.log(err.statusText);
+                    // Mostramos mensaje de operacion exitosa
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Eliminado'
+                    })
+                },
+                error: function (err) {
+                    console.log(err.statusText);
+                }
+            });
         }
-    });
-    
+    })
 }
 
 function set_nombre_actividad(id_actividad, nuevo_nombre){
@@ -108,7 +120,14 @@ function set_fecha_inicio(id_actividad, nueva_fecha_inicio){
         data: {id_actividad: id_actividad, fecha_inicio: nueva_fecha_inicio},
         type: "POST",
         dataType: 'json',
-        success: function (res) {},
+        success: function (res) {
+            console.log(res.fechas)
+            let fechas = res.fechas;
+            document.querySelector(`#fecha_inicio_grupo_${fechas.id_grupo}`).textContent = fechas[0].fecha_inicio_grupo
+            document.querySelector(`#fecha_fin_grupo_${fechas.id_grupo}`).textContent = fechas[1].fecha_fin_grupo
+            document.querySelector(`#proyecto_fecha_inicio`).textContent = fechas[2].fecha_inicio_proyecto
+            document.querySelector(`#proyecto_fecha_fin`).textContent = fechas[3].fecha_fin_proyecto
+        },
         error: function (err) {
             console.log(err.statusText);
         }
@@ -121,7 +140,15 @@ function set_fecha_fin(id_actividad, nueva_fecha_fin){
         data: {id_actividad: id_actividad, fecha_fin: nueva_fecha_fin},
         type: "POST",
         dataType: 'json',
-        success: function (res) {},
+        success: function (res) {
+            console.log(res.fechas)
+            let fechas = res.fechas;
+            document.querySelector(`#fecha_inicio_grupo_${fechas.id_grupo}`).textContent = fechas[0].fecha_inicio_grupo
+            document.querySelector(`#fecha_fin_grupo_${fechas.id_grupo}`).textContent = fechas[1].fecha_fin_grupo
+            document.querySelector(`#proyecto_fecha_inicio`).textContent = fechas[2].fecha_inicio_proyecto
+            document.querySelector(`#proyecto_fecha_fin`).textContent = fechas[3].fecha_fin_proyecto
+            
+        },
         error: function (err) {
             console.log(err.statusText);
         }

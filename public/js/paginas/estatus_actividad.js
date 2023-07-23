@@ -1,26 +1,27 @@
-var tabla_tipos_usuario;
-var proceso_validacion_tipos_usuario;
+var tabla_estatus_actividad;
+var proceso_validacion_estatus_actividad;
 
 window.addEventListener('DOMContentLoaded', (event) => {
     /* Variables del DOM */
-    const btn_nuevo_tipo_usuario = document.querySelector('#btn_nuevo_tipo_usuario');
-    const btn_guardar_tipo_usuario = document.querySelector('#btn_guardar_tipo_usuario');
+    const btn_nuevo_estatus_actividad = document.querySelector('#btn_nuevo_estatus_actividad');
+    const btn_guardar_estatus_actividad = document.querySelector('#btn_guardar_estatus_actividad');
 
     // Creando el cuerpo de la tabla con dataTable y ajax
-    tabla_tipos_usuario = $("#tabla_tipos_usuario").DataTable({
+    tabla_estatus_actividad = $("#tabla_estatus_actividad").DataTable({
         // Petición para llenar la tabla
         "ajax": {
-            url: '/tipos_usuario/show',
+            url: '/estatus_actividad/show',
             dataSrc: ''
         },
         "columns": [
-            {data: 'id_tipo_usuario', visible:false},
-            {data: 'tipo_usuario'},
+            {data: 'id_estatus_actividad', visible:false},
+            {data: 'nombre_estatus',},
+            {data: 'color',},
             {data: 'activo', visible:false},
             // Botones para editar y eliminar
             { data: null, render: function ( data, type, row ) {
-                    return `<button class="btn btn-info btn-xs editar_tipos_usuario" value="${row.id_tipo_usuario}"><i class="fas fa-pencil-alt"></i></button>
-                            <button class="btn btn-danger btn-xs " value="${row.id_tipo_usuario}" onclick="eliminar_tipos_usuario(this.value,'${row.tipo_usuario}')"><i class="fas fa-trash-alt"></i></button>`;
+                    return `<button class="btn btn-info btn-xs editar_estatus_actividad" value="${row.id_estatus_actividad}"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn btn-danger btn-xs" value="${row.id_estatus_actividad}" onclick="eliminar_estatus_actividad(this.value,'${row.nombre_estatus}')"><i class="fas fa-trash-alt"></i></button>`;
                 },
                 visible: session_es_administrador
             },
@@ -29,7 +30,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         order: [[0, 'desc']],
         // Habilitar o deshabilitar el ordenable en las columnas
         'columnDefs': [ {
-            'targets': [2], /* table column index */
+            'targets': [4], /* table column index */
             'orderable': false, /* true or false */
          }],
         // Cambiamos a espeañol el idioma de los mensajes
@@ -64,36 +65,36 @@ window.addEventListener('DOMContentLoaded', (event) => {
     })
 
     // Obtiene todos los datos del registro en el datatable al dar clic en editar
-    $('#tabla_tipos_usuario tbody').on('click', '.editar_tipos_usuario', function () {
-        var dataRow = tabla_tipos_usuario.row($(this).parents('tr')).data();
-        cambiar_action_tipos_usuario('update');
-        editar_tipos_usuario(dataRow);
+    $('#tabla_estatus_actividad tbody').on('click', '.editar_estatus_actividad', function () {
+        var dataRow = tabla_estatus_actividad.row($(this).parents('tr')).data();
+        cambiar_action_estatus_actividad('update');
+        editar_estatus_actividad(dataRow);
     });
 
-    validar_form_tipo_usuario()
-    cargar_event_isteners_tipos_usuario();
+    validar_form_estatus_actividad()
+    cargar_event_isteners_estatus_actividad();
 });
 
 /* Listeners */
-function cargar_event_isteners_tipos_usuario() {
+function cargar_event_isteners_estatus_actividad() {
     // Se activa cuando se presiona "Nuevo"
-    btn_nuevo_tipo_usuario.addEventListener('click', () =>{
-        cambiar_action_tipos_usuario('create');
+    btn_nuevo_estatus_actividad.addEventListener('click', () =>{
+        cambiar_action_estatus_actividad('create');
     });
     // Se activa cuando se hace clic en el boton guardar del modal
-    btn_guardar_tipo_usuario.addEventListener('click', guardar_datos_tipos_usuario);
-    $('#modal_tipos_usuario').on('hide.bs.modal', limpiar_form_tipos_usuario);
+    btn_guardar_estatus_actividad.addEventListener('click', guardar_datos_estatus_actividad);
+    $('#modal_estatus_actividad').on('hide.bs.modal', limpiar_form_estatus_actividad);
 }
 
 /* Funciones */
 
 // Función que agrega un cliente nuevo a la BD o edita un cliente
-function guardar_datos_tipos_usuario(){
-    if($("#form_tipos_usuario").valid()){
+function guardar_datos_estatus_actividad(){
+    if($("#form_estatus_actividad").valid()){
         // Obtenemos la operacion a realizar create ó update
-        var form_action = $("#form_tipos_usuario").attr("action");
+        var form_action = $("#form_estatus_actividad").attr("action");
         // Guardamos el form con los input file para subir archivos
-        var formData = new FormData(document.getElementById("form_tipos_usuario"));
+        var formData = new FormData(document.getElementById("form_estatus_actividad"));
         $.ajax({
             data: formData,
             url: form_action,
@@ -104,11 +105,11 @@ function guardar_datos_tipos_usuario(){
             success: function (res) {
                 console.log(res)
                 // Despues de crearse el registro en BD se actualiza la tabla
-                $('#tabla_tipos_usuario').DataTable().ajax.reload();
-                // Se ccrea el select actualizado
-                select_tipos_usuario("tipo_usuario_select")
+                $('#tabla_estatus_actividad').DataTable().ajax.reload();
+                // Creamos el nuevo select
+                menu_estatus_actividad()
                 // Se cierra el modal
-                $('#modal_tipos_usuario').modal('hide');
+                $('#modal_estatus_actividad').modal('hide');
                 // Mostramos mensaje de operacion exitosa
                 Toast.fire({
                     icon: 'success',
@@ -122,10 +123,10 @@ function guardar_datos_tipos_usuario(){
     }
 };
 
-function eliminar_tipos_usuario(id,tipo_usuario){
+function eliminar_estatus_actividad(id,nombre_estatus){
     Swal.fire({
         title: '<span style="color:red">Eliminar<span>',
-        html: `El tipo <b>${tipo_usuario}</b> será <b>eliminado</b> <b>permanentemente</b>,<br> <ins>¿Confirma la operación?</ins>`,
+        html: `El estatus <b>${nombre_estatus}</b> será <b>eliminado</b> <b>permanentemente</b>,<br> <ins>¿Confirma la operación?</ins>`,
         showCancelButton: true,
         cancelButtonColor: '#d33',
         confirmButtonColor: '#3085d6',
@@ -134,14 +135,14 @@ function eliminar_tipos_usuario(id,tipo_usuario){
       }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: 'tipos_usuario/delete/'+id,
+                url: 'estatus_actividad/delete/'+id,
                 type: "GET",
                 dataType: 'json',
                 success: function (res) {
                     // Despues de eliminar el registro en BD se actualiza la tabla
-                    $('#tabla_tipos_usuario').DataTable().ajax.reload();
-                    // Se ccrea el select actualizado
-                    select_tipos_usuario("tipo_usuario_select")
+                    $('#tabla_estatus_actividad').DataTable().ajax.reload();
+                    // Creamos el nuevo select
+                    menu_estatus_actividad()
                     // Mensaje de operacion exitosa
                     Toast.fire({
                         icon: 'success',
@@ -157,45 +158,46 @@ function eliminar_tipos_usuario(id,tipo_usuario){
 }
 
 // Función que cargar los datos del row clickeado y los coloca en el form y abre el modal
-function editar_tipos_usuario(dataRow){
-    console.log(dataRow.id_tipo_usuario);
-    console.log(document.querySelector('#id_tipo_usuario'))
-    document.querySelector('#id_tipo_usuario').value = dataRow.id_tipo_usuario;
-    document.querySelector('#tipo_usuario').value = dataRow.tipo_usuario;
+function editar_estatus_actividad(dataRow){
+    console.log(dataRow.id_estatus_actividad);
+    console.log(document.querySelector('#id_estatus_actividad'))
+    document.querySelector('#id_estatus_actividad').value = dataRow.id_estatus_actividad;
+    document.querySelector('#nombre_estatus').value = dataRow.nombre_estatus;
+    document.querySelector('#color').value = dataRow.color;
 
-    // Se ccrea el select actualizado
-    select_tipos_usuario("tipo_usuario_select")
+    // Creamos el nuevo select
+    menu_estatus_actividad()
 
-    $('#modal_tipos_usuario').modal('show');
+    $('#modal_estatus_actividad').modal('show');
 }
 
 // Función que limpia el formulario y cambia el action
 // cuando se va a agregar o editar un registro
-function cambiar_action_tipos_usuario(operacion){
-    document.querySelector("#form_tipos_usuario").removeAttribute("action");
-    document.querySelector("#form_tipos_usuario").setAttribute("action",`/tipos_usuario/${operacion}`);
+function cambiar_action_estatus_actividad(operacion){
+    document.querySelector("#form_estatus_actividad").removeAttribute("action");
+    document.querySelector("#form_estatus_actividad").setAttribute("action",`/estatus_actividad/${operacion}`);
 }
 
 // Función que restablece todo el form
-function limpiar_form_tipos_usuario(){
+function limpiar_form_estatus_actividad(){
     // Limpia los valores del form
-    $('#form_tipos_usuario')[0].reset();
+    $('#form_estatus_actividad')[0].reset();
     // Quita los mensajes de error y limpia los valodes del form
-    proceso_validacion_tipos_usuario.resetForm();
+    proceso_validacion_estatus_actividad.resetForm();
     // Quita los estilos de error de los inputs
-    $('#form_tipos_usuario').find(".is-invalid").removeClass("is-invalid");
+    $('#form_estatus_actividad').find(".is-invalid").removeClass("is-invalid");
 }
 
-function validar_form_tipo_usuario(){
-    proceso_validacion_tipos_usuario = $('#form_tipos_usuario').validate({
+function validar_form_estatus_actividad(){
+    proceso_validacion_estatus_actividad = $('#form_estatus_actividad').validate({
         rules: {
-          tipo_usuario: {
+            nombre_estatus: {
             required: true,
           }
         },
         messages: {
-          tipo_usuario: {
-            required: "Ingresar tipo de usuario"
+            nombre_estatus: {
+            required: "Ingresar estatus"
           }
         },
         errorElement: 'span',

@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const select_espacios_trabajo = document.querySelector("#select_espacios_trabajo");
     /* variables elementos proyectos */
     const btn_nuevo_proyecto = document.querySelector("#btn_nuevo_proyecto");
-    const contenedor_lista_proyectos = document.querySelector("#contenedor_lista_proyectos");
     const btn_guardar_proyecto = document.querySelector("#btn_guardar_proyecto");
     /* variables elementos Grupos */
     const btn_nuevo_grupo = document.querySelector("#btn_nuevo_grupo");
@@ -25,11 +24,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     /* varaibles elementos catalogos */
     const btn_catalogo_usuarios = document.querySelector('#btn_catalogo_usuarios');
     const btn_catalogo_tipos_usuario = document.querySelector('#btn_catalogo_tipos_usuario');
+    const btn_catalogo_estatus_actividad = document.querySelector('#btn_catalogo_estatus_actividad');
 
     /* LLAMADO A FUNCIONES */
     // cargar_select_espacios_trabajo()
     menu_estatus_actividad()
     select_usuarios()
+    select_tipos_usuario("tipo_usuario_select")
     cargar_lista_proyectos()
     cargar_event_listeners_principal()
 });
@@ -38,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function cargar_event_listeners_principal(){
     btn_catalogo_usuarios.addEventListener('click', mostrar_catalogo_usuarios);
     btn_catalogo_tipos_usuario.addEventListener('click', mostrar_catalogo_tipos_usuario);
+    btn_catalogo_estatus_actividad.addEventListener('click', mostrar_catalogo_estatus_actividad);
     // espacios de trabajo
     // btn_agregar_espacio_trabajo.addEventListener('click', crear_espacio_trabajo)
     // btn_guardar_espacio_trabajo.addEventListener('click', guardar_datos_espacio_trabajo)
@@ -50,7 +52,6 @@ function cargar_event_listeners_principal(){
     // proyectos
     btn_nuevo_proyecto.addEventListener('click', crear_proyecto)
     btn_guardar_proyecto.addEventListener('click', guardar_datos_proyecto)
-    contenedor_lista_proyectos.addEventListener('click',(event) => {opciones_proyecto(event)});
     // Grupos
     btn_nuevo_grupo.addEventListener('click',(event) => {crear_grupo(event)});
 }
@@ -62,28 +63,12 @@ function mostrar_catalogo_usuarios(){
 
 function mostrar_catalogo_tipos_usuario() {
     limpiar_contenedor_paginas()
+    document.querySelector("#vista_catalogo_tipos_usuario").style.display = "";
 }
 
-function mostrar_informacion_proyecto(id_proyecto, nombre_proyecto){
+function mostrar_catalogo_estatus_actividad() {
     limpiar_contenedor_paginas()
-    document.querySelector("#titulo_nombre_proyecto").textContent = nombre_proyecto;
-    document.querySelector("#btn_nuevo_grupo").value = id_proyecto;
-    cargar_grupos(id_proyecto)
-    document.querySelector("#vista_grupos").style.display = "";
-}
-
-function opciones_proyecto(event){
-    // console.log(event.target)
-    let btn_seleccionado = event.target;
-    let btn_proyecto_lista = btn_seleccionado.parentElement.parentElement.previousElementSibling;
-
-    if(btn_seleccionado.classList.contains('btn_renombrar_proyecto')){
-        editar_proyecto(btn_proyecto_lista)
-    }else if(btn_seleccionado.classList.contains('btn_eliminar_proyecto')){
-        eliminar_proyecto(btn_proyecto_lista)
-    }else if(btn_seleccionado.classList.contains('btn_proyecto_lista')){
-        mostrar_informacion_proyecto(btn_seleccionado.value, btn_seleccionado.textContent)
-    }
+    document.querySelector("#vista_catalogo_estatus_actividad").style.display = "";
 }
 
 function limpiar_contenedor_paginas(){
@@ -106,6 +91,7 @@ function menu_estatus_actividad(){
             processData: false,
             contentType: false,
             success: function (res) {
+                opciones_estatus_actividad = '';
                 res.forEach(estatus => {
                     opciones_estatus_actividad += `<button class="dropdown-item"
                         type="button"
@@ -144,6 +130,32 @@ function select_usuarios(){
             },
             error: function (err) {
                 reject()
+            }
+        });
+    });
+}
+
+function select_tipos_usuario(id_select){
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `/tipos_usuario/show`,
+            type: "GET",
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                let select = document.querySelector(`#${id_select}`);
+                select.innerHTML = ""
+
+                select.innerHTML = `<option value="">Seleccionar tipo</option>`;
+
+                res.forEach(tipo_usuario => {
+                    select.innerHTML += `<option value="${tipo_usuario.id_tipo_usuario}">${tipo_usuario.tipo_usuario}</option>`;
+                });
+                resolve('ok')
+            },
+            error: function (err) {
+                reject(err)
             }
         });
     });

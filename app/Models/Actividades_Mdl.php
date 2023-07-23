@@ -23,11 +23,27 @@ class Actividades_Mdl extends Model
     ];
 
     public function get($id = null){
+        $condicion = ['id_actividad' => $id,'activo' => '1'];
+        
         if($id === null){
-            return $this->where(['activo' => '1'])->findAll();
+            $condicion = ['activo' => '1'];
         }
 
-        return $this->asArray()->where(['id_actividad' => $id,'activo' => '1'])->first();
+        return $this->table('actividades')->select('
+            id_actividad,
+            id_grupo,
+            usuario_creador,
+            nombre_actividad,
+            id_estatus_actividad,
+            fecha_inicio,
+            fecha_fin,
+            notas,
+            privacidad,
+            activo,
+            fecha_creacion,
+            fecha_modificacion,
+            (SELECT id_tipo_usuario FROM usuarios WHERE usuarios.id_usuario = actividades.usuario_creador) as tipo_usuario
+        ')->where($condicion)->findAll();
     }
 
     public function actividades_por_grupo($id = null){
@@ -49,7 +65,8 @@ class Actividades_Mdl extends Model
             fecha_creacion,
             fecha_modificacion,
             (SELECT color FROM estatus_actividad WHERE estatus_actividad.id_estatus_actividad = actividades.id_estatus_actividad) AS color_estatus,
-            (SELECT nombre_estatus FROM estatus_actividad WHERE estatus_actividad.id_estatus_actividad = actividades.id_estatus_actividad) AS nombre_estatus
+            (SELECT nombre_estatus FROM estatus_actividad WHERE estatus_actividad.id_estatus_actividad = actividades.id_estatus_actividad) AS nombre_estatus,
+            (SELECT id_tipo_usuario FROM usuarios WHERE usuarios.id_usuario = actividades.usuario_creador) as tipo_usuario
         ')->where(['id_grupo' => $id,'activo' => '1'])->findAll();
     }
 }

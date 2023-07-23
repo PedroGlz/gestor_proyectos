@@ -14,7 +14,18 @@ class Estatus_actividad_Mdl extends Model
         'activo',
     ];
 
-    public function get(){
-        return $this->asArray()->where(['activo' => '1'])->findAll();
+    public function get($id = null){
+        $condicion = ['id_estatus_actividad' => $id, 'activo' => 1];
+        
+        if($id === null){
+            $condicion = ['activo' => 1];
+        }
+
+        return $this->table('estatus_actividad')->select('
+            id_estatus_actividad,
+            nombre_estatus,
+            color,
+            activo,
+        ')->where($condicion)->findAll();
     }
 }

@@ -1,13 +1,12 @@
 <div>
-    <div class="d-flex justify-content-between mb-3">
+    <div class="d-flex justify-content-between mb-3" style="padding-right: 6px;">
         <img src="img/sistema/img_sicap_sin_fondo.png" alt="ETIC" class="img-fluid" width="100" height="50">
         <div class="align-self-center font-weight-bold" id="titulo_nombre_proyecto"></div>
         <div class="align-self-center">
-            <span id="proyecto_fecha_inicio"><small>Fecha de inicio: -- / -- / ----</small></span>
+            <span><small>Fecha de inicio: </small><small id="proyecto_fecha_inicio">-- / -- / ----</small></span>
             &nbsp;
             &nbsp;
-            &nbsp;
-            <span id="proyecto_fecha_fin"><small>Fecha final: -- / -- / ----</small></span>
+            <span><small>Fecha final: </small><small id="proyecto_fecha_fin">-- / -- / ----</small></span>
         </div>
     </div>
 

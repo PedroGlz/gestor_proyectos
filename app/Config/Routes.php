@@ -34,17 +34,29 @@ $routes->post('/validar', 'Login::validar');
 $routes->get('/salir', 'Login::salir');
 
 $routes->get('principal', 'Login::principal');
-$routes->get('/usuarios', 'Usuarios::index');
+// USUARIOS
 $routes->get('/usuarios/show', 'Usuarios::show');
-$routes->get('/tipos_usuario', 'Tipos_usuario::index');
-
+$routes->post('/usuarios/create', 'Usuarios::create');
+$routes->post('/usuarios/update', 'Usuarios::update');
+$routes->get('/usuarios/delete/(:any)', 'Usuarios::delete/$1');
+// TIPOS DE USUARIO
+$routes->get('/tipos_usuario/show', 'Tipos_usuario::show');
+$routes->post('/tipos_usuario/create', 'Tipos_usuario::create');
+$routes->post('/tipos_usuario/update', 'Tipos_usuario::update');
+$routes->get('/tipos_usuario/delete/(:any)', 'Tipos_usuario::delete/$1');
+// ESTATUS ACTIVIDAD
+$routes->get('/estatus_actividad/show', 'Estatus_actividad::show');
+$routes->post('/estatus_actividad/create', 'Estatus_actividad::create');
+$routes->post('/estatus_actividad/update', 'Estatus_actividad::update');
+$routes->get('/estatus_actividad/delete/(:any)', 'Estatus_actividad::delete/$1');
 // ESPACIOS DE TRABAJO
 $routes->get('/espacios_trabajo/show', 'Espacios_de_trabajo::show');
 $routes->post('/espacios_trabajo/create', 'Espacios_de_trabajo::create');
 $routes->post('/espacios_trabajo/update', 'Espacios_de_trabajo::update');
 $routes->get('/espacios_trabajo/delete/(:any)', 'Espacios_de_trabajo::delete/$1');
-// TABLEROS
+// PROYECTOS
 $routes->get('/proyectos/show', 'Proyectos::show');
+$routes->POST('/proyectos/datos_proyecto', 'Proyectos::datos_proyecto');
 $routes->post('/proyectos/create', 'Proyectos::create');
 $routes->post('/proyectos/update', 'Proyectos::update');
 $routes->get('/proyectos/delete/(:any)', 'Proyectos::delete/$1');
@@ -69,11 +81,8 @@ $routes->post('/actividades/set_estatus_actividad', 'Actividades::set_estatus_ac
 $routes->post('/actividades/agregar_usuario_actividad', 'Actividades::agregar_usuario_actividad');
 $routes->get('/actividades/eliminar_usuario_actividad/(:any)', 'Actividades::eliminar_usuario_actividad/$1');
 $routes->post('/usuarios_actividad/usuarios_por_actividad', 'Usuarios_actividad::usuarios_por_actividad');
-// ESTATUS
-$routes->get('/estatus_actividad/show', 'Estatus_actividad::show');
-$routes->post('/estatus_actividad/create', 'Estatus_actividad::create');
-$routes->post('/estatus_actividad/update', 'Estatus_actividad::update');
-$routes->get('/estatus_actividad/delete/(:any)', 'Estatus_actividad::delete/$1');
+$routes->get('/actividades/mail', 'Actividades::mail');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
