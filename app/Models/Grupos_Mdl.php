@@ -46,12 +46,17 @@ class Grupos_Mdl extends Model
         ')->where($condicion)->findAll();
     }
 
-    public function grupos_por_proyecto($id_proyecto = null, $id_grupo = null, $datos_session = null){
+    public function grupos_por_proyecto($id_proyecto = null, $tipo_usuario = null, $id_usuario, $array_grupos_asignados = []){
         if($id_proyecto === null){return;}
 
-        $condicion = "id_proyecto = ".$id_proyecto." AND activo = 1 AND (id_grupo = ".$id_grupo." OR usuario_creador = ".$datos_session["id_usuario"].")";
-        
-        if ($datos_session["tipo_usuario"] == 1) {
+        // Si no tiene grupos asignados el array se va con un valor 0 para que no truene el orWhereIn
+        if(empty($array_grupos_asignados)){$array_grupos_asignados = [0];}
+                
+        // Si no es administrador, ver los grupos creados por el usuario logeado o los grupos asignados al usuario en el orWhereIn
+        $condicion = "id_proyecto = ".$id_proyecto." AND activo = 1 AND usuario_creador = ".$id_usuario."";
+
+        // Si es administrador ve todo
+        if ($tipo_usuario == 1) {
             $condicion = ['id_proyecto' => $id_proyecto,'activo' => '1'];
         }
 
@@ -69,6 +74,13 @@ class Grupos_Mdl extends Model
             fecha_creacion,
             fecha_modificacion,
             (SELECT id_tipo_usuario FROM usuarios WHERE usuarios.id_usuario = grupos.usuario_creador) as tipo_usuario
-        ')->where($condicion)->findAll();
+        ')->where($condicion)
+        ->orWhereIn('id_grupo',$array_grupos_asignados)->findAll();
     }
+
+    public function existen_grupos_por_proyecto($id_proyecto){
+        return $this->table('grupos')->where(["id_proyecto" => $id_proyecto])->findAll();
+    }
+
+
 }

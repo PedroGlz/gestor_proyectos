@@ -2,31 +2,20 @@
 
 use App\Models\Grupos_Mdl;
 use App\Models\Actividades_Mdl;
+use App\Models\Usuarios_asignaciones_Mdl;
 use App\Controllers\BaseController;
 
 class Grupos extends BaseController
 {
-    public function show($id = null){
+    public function show($id_proyecto = null){
         $grupos_mdl = new Grupos_Mdl();
+        $usuarios_asignaciones_Mdl = new Usuarios_asignaciones_Mdl();
         $session = session();
-        $db = db_connect();
 
-        $id_actividad = $db->query("SELECT id_actividad FROM usuarios_actividad WHERE id_usuario = $session->id_usuario GROUP BY id_actividad")->getResultArray();
-        $array_actividades = [];
-        foreach ($id_actividad as $row) {
-            array_push($array_actividades,$row["id_actividad"]);
-        }
-        // $id_actividad = is_null($id_actividad) ? 0 : $id_actividad['id_actividad'];
-        print_r($array_actividades);
-        return;
-        $id_grupo = $db->query("SELECT id_grupo FROM actividades WHERE id_actividad = $id_actividad")->getRowArray();
-        $id_grupo = is_null($id_grupo) ? 0 : $id_grupo['id_grupo'];
-        // $id_proyecto = $db->query("SELECT id_proyecto FROM grupos WHERE id_grupo = $id_grupo")->getRowArray();
-        // $id_proyecto = is_null($id_proyecto) ? 0 : $id_proyecto['id_proyecto'];
+        // Obtenemos los grupos en los que esta asignado el usuario logeado y que sean del proyecto solicitado
+        $array_grupos_asignados = $usuarios_asignaciones_Mdl->usuarios_asignacion_grupos($session->id_usuario, $id_proyecto);
         
-        $datos_session = datos_session($session);
-        
-        return (json_encode($grupos_mdl->grupos_por_proyecto($id,$id_grupo,$datos_session)));
+        return (json_encode($grupos_mdl->grupos_por_proyecto($id_proyecto, $session->tipo_usuario, $session->id_usuario, $array_grupos_asignados)));
     }
 
     public function create(){

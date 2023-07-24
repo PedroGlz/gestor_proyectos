@@ -20,7 +20,8 @@ function cargar_lista_proyectos(){
                 if(res.length == 0){
                     contenedor_lista_proyectos.innerHTML = `<p class="text-center">Este espacio de trabajo está vacío</p>`;
                 }
-
+                
+                let ver_operaciones;
                 // creando el la lista de proyectos existentes
                 res.forEach(proyecto => {
                     
@@ -36,6 +37,7 @@ function cargar_lista_proyectos(){
                         id="tab_list_${proyecto.id_proyecto}"
                         value="${proyecto.id_proyecto}"
                         privacidad="${proyecto.privacidad}"
+                        usuario_creador="${proyecto.usuario_creador}"
                         onclick="mostrar_informacion_proyecto(event)"
                         >
                             <i class="far fa-clipboard"></i>
@@ -91,11 +93,21 @@ function mostrar_informacion_proyecto(event){
 
     limpiar_contenedor_paginas()
     
+    // Colocando el nombre de poryecto como titulo a la vista de los grupos
     document.querySelector("#titulo_nombre_proyecto").textContent = btn.textContent;
+    // Colocando el id_proyecto al boton de crear grupo
     document.querySelector("#btn_nuevo_grupo").value = btn.value;
-    // COlocando fechas proyecto
-    cargar_grupos(btn.value)
-    document.querySelector("#vista_grupos").style.display = "";
+
+    // mostrar el boton de agregar grupo solo si el poryecto lo creo el usuario logeado o es administrador
+    if(btn.getAttribute("usuario_creador") == session_id_usuario || session_es_administrador){
+        document.querySelector("#btn_nuevo_grupo").style.visibility = "visible";
+    }else{
+        document.querySelector("#btn_nuevo_grupo").style.visibility = "hidden";
+    }
+
+    cargar_grupos(btn.value).then(() => {
+        document.querySelector("#vista_grupos").style.display = "";
+    });
 }
 
 function guardar_datos_proyecto(){

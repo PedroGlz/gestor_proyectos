@@ -158,6 +158,8 @@ function cargar_grupos(id_proyecto){
                 let display_colapso;
                 let checked_publico;
                 let checked_privado;
+                let ver_operaciones;
+                let valor_disabled;
                 // creando el la lista de grupo existentes
                 res.forEach(grupo => {
                     
@@ -177,6 +179,14 @@ function cargar_grupos(id_proyecto){
                         checked_privado = 'checked';
                     }
 
+                    if(grupo.usuario_creador == session_id_usuario || session_es_administrador){
+                        ver_operaciones = "visible";
+                        valor_disabled = ""
+                    }else{
+                        ver_operaciones = "hidden";
+                        valor_disabled = "disabled"
+                    }
+
                     contenedor_grupos_creados.innerHTML += `
                     <div class="card" style="border-right: 4px solid #bcbcbc; border-bottom: 4px solid #bcbcbc;">
                         <div class="card-header" style="background-color: ${grupo.color_grupo}" id="card_header_grupo_${grupo.id_grupo}">
@@ -187,7 +197,7 @@ function cargar_grupos(id_proyecto){
                                             <i class="fas fa-${icono_colapso}"></i>
                                         </button>
                                     </div>
-                                    <input type="text" class="form-control elemento_titulo_grupo" placeholder="Nombre grupo" value="${grupo.nombre_grupo}" onblur="set_nombre_grupo(${grupo.id_grupo}, this.value)">
+                                    <input type="text" class="form-control elemento_titulo_grupo" placeholder="Nombre grupo" value="${grupo.nombre_grupo}" onblur="set_nombre_grupo(${grupo.id_grupo}, this.value)" ${valor_disabled}>
                                     <span class="align-self-center pl-1 pr-1" style="
                                         background-color: #ffffff00;
                                         border: none;
@@ -216,7 +226,7 @@ function cargar_grupos(id_proyecto){
                                 <div class="col-3 d-flex justify-content-end">
 
                                     <div class="dropdown dropleft">
-                                        <button class="btn elemento_titulo_grupo" type="button" data-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn elemento_titulo_grupo" type="button" data-toggle="dropdown" aria-expanded="false" style="visibility:${ver_operaciones}">
                                             <i class="fas fa-ellipsis-h fa-sm"></i>
                                         </button>
                                         <div class="dropdown-menu" style="min-width:16rem">
@@ -269,6 +279,9 @@ function cargar_grupos(id_proyecto){
                 
                     contenido_tabla_actividades(grupo.id_grupo).then( resultado =>  {
                         document.querySelector(`#cuerpo_tabla_actividades_${grupo.id_grupo}`).innerHTML = resultado;
+                        // Se habilita el boton de agregar actividad solo si el usuario logeado creo el grupo o si es admin
+                        document.querySelector(`#cuerpo_tabla_actividades_${grupo.id_grupo}`).lastElementChild.style.visibility = ver_operaciones
+
                     }).catch( error => {
                         console.log(error);
                     });
@@ -292,15 +305,38 @@ function contenido_tabla_actividades(id_grupo){
             processData: false,
             contentType: false,
             success: function (res) {
+                console.log(res)
+                
+                let ver_operaciones;
+                let valor_disabled;
+                let valor_disabled_btn_estatus;
                 let t_body = ``;
                 if(res.length > 0){
                     res.forEach(actividad => {
+
+                        // En primer instancia habilita solo lo que el usuario creo o si es admin
+                        if(actividad.usuario_creador == session_id_usuario || session_es_administrador){
+                            valor_disabled = ""
+                            ver_operaciones = "visible";
+                        }else{
+                            valor_disabled = "disabled"
+                            ver_operaciones = "hidden";
+                        }
+
+                        // Si es una actividad asignada al usuario logeado solo puede cambiar el esatus
+                        if(actividad.usuario_asignado == session_id_usuario){
+                            valor_disabled_btn_estatus = ""
+                        }else{
+                            valor_disabled_btn_estatus = "disabled"
+                        }
+
+
                         t_body += `
                         <tr>
-                            <td><input type="text" class="form-control" value="${actividad.nombre_actividad}" onblur="set_nombre_actividad(${actividad.id_actividad}, this.value)"></td>
+                            <td><input type="text" class="form-control" value="${actividad.nombre_actividad}" onblur="set_nombre_actividad(${actividad.id_actividad}, this.value)" ${valor_disabled}></td>
                             <td>
                                 <div class="dropdown">
-                                    <button class="btn btn-block" type="button" data-toggle="dropdown" aria-expanded="false" onclick="cargar_usuarios_actividad(${actividad.id_actividad})">
+                                    <button class="btn btn-block" type="button" data-toggle="dropdown" aria-expanded="false" onclick="cargar_usuarios_actividad(${actividad.id_actividad})" ${valor_disabled}>
                                         <i class="fas fa-users fa-lg"></i>
                                     </button>
                                     <div class="dropdown-menu p-0" style="min-width:18rem">
@@ -321,17 +357,17 @@ function contenido_tabla_actividades(id_grupo){
                             <td>
                                 <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="dropdown"
                                     style="height:38px; width:111px; background-color:${actividad.color_estatus}" aria-haspopup="true" aria-expanded="true"
-                                    value="${actividad.id_actividad}">
+                                    value="${actividad.id_actividad}" ${valor_disabled_btn_estatus}>
                                     ${actividad.nombre_estatus}
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right p-0">
                                     ${opciones_estatus_actividad}
                                 </div>
                             </td>
-                            <td><input type="date" value="${actividad.fecha_inicio}" class="form-control" onchange="set_fecha_inicio(${actividad.id_actividad}, this.value)"></td>
-                            <td><input type="date" value="${actividad.fecha_fin}" class="form-control" onchange="set_fecha_fin(${actividad.id_actividad}, this.value)"></td>
-                            <td><textarea name="" rows="1" class="form-control" onblur="set_notas_actividad(${actividad.id_actividad}, this.value)">${actividad.notas}</textarea></td>
-                            <td><i class="fas fa-trash-alt text-danger" onclick="eliminar_actividad(${actividad.id_actividad}, event)" style="cursor: pointer;"></i></td>
+                            <td><input type="date" value="${actividad.fecha_inicio}" class="form-control" onchange="set_fecha_inicio(${actividad.id_actividad}, this.value)" ${valor_disabled}></td>
+                            <td><input type="date" value="${actividad.fecha_fin}" class="form-control" onchange="set_fecha_fin(${actividad.id_actividad}, this.value)" ${valor_disabled}></td>
+                            <td><textarea name="" rows="1" class="form-control" onblur="set_notas_actividad(${actividad.id_actividad}, this.value)" ${valor_disabled}>${actividad.notas}</textarea></td>
+                            <td><i class="fas fa-trash-alt text-danger" onclick="eliminar_actividad(${actividad.id_actividad}, event)" style="cursor: pointer;" ${ver_operaciones}></i></td>
                         </tr>
                         `;
                     });

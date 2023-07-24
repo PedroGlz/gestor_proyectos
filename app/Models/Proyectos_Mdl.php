@@ -40,9 +40,14 @@ class Proyectos_Mdl extends Model
         ')->where($condicion)->findAll();
     }
 
-    public function proyectos_por_usuario($id_usuario, $id_tipo_usuario, $id_proyectos_asignados){
-        // Si no es administrador, ver los proyectos asignados o los poryectos creador por el usuario logeado
-        $condicion = "activo = 1 AND usuario_creador = ".$id_usuario." OR id_proyecto = ".$id_proyectos_asignados."";
+    public function proyectos_por_usuario($id_usuario, $id_tipo_usuario, $array_proyectos_asignados = []){
+        if($id_usuario === null){return;}
+
+        // Si no tiene proyectos asignadosel array se va con un valor 0 para que no truene el orWhereIn
+        if(empty($array_proyectos_asignados)){$array_proyectos_asignados = [0];}
+        
+        // Si no es administrador, ver los poryectos creados por el usuario logeado o los proyectos asignados al usuario en el orWhereIn
+        $condicion = "activo = 1 AND usuario_creador = ".$id_usuario."";
 
         // Si es administrador ve todo
         if($id_tipo_usuario == 1){
@@ -60,6 +65,8 @@ class Proyectos_Mdl extends Model
             fecha_creacion,
             fecha_modificacion,
             (SELECT id_tipo_usuario FROM usuarios WHERE usuarios.id_usuario = proyectos.usuario_creador) as tipo_usuario
-        ')->where($condicion)->findAll();
+        ')->where($condicion)
+        ->orWhereIn('id_proyecto',$array_proyectos_asignados)
+        ->findAll();
     }
 }

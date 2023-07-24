@@ -39,7 +39,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
-
+      <span class=""><?= $nombre." ".$apellido_paterno ?></span>
       <!-- HERRAMIENATAS DEL HEADER -->
       <ul class="navbar-nav ml-auto">
         <!-- NAVBAR BUSCADOR -->

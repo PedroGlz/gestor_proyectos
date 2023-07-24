@@ -2,23 +2,20 @@
 
 use App\Models\Proyectos_Mdl;
 use App\Models\Grupos_Mdl;
+use App\Models\Usuarios_asignaciones_Mdl;
 use App\Controllers\BaseController;
 
 class Proyectos extends BaseController
 {
     public function show(){
         $proyectos_mdl = new Proyectos_Mdl();
+        $usuarios_asignaciones_Mdl = new Usuarios_asignaciones_Mdl();
         $session = session();
-        $db = db_connect();
-
-        $id_actividad = $db->query("SELECT id_actividad FROM usuarios_actividad WHERE id_usuario = $session->id_usuario")->getRowArray();
-        $id_actividad = is_null($id_actividad) ? "0" : $id_actividad['id_actividad'];
-        $id_grupo = $db->query("SELECT id_grupo FROM actividades WHERE id_actividad = $id_actividad")->getRowArray();
-        $id_grupo = is_null($id_grupo) ? "0" : $id_grupo['id_grupo'];
-        $id_proyecto = $db->query("SELECT id_proyecto FROM grupos WHERE id_grupo = $id_grupo")->getRowArray();
-        $id_proyecto = is_null($id_proyecto) ? 0 : $id_proyecto['id_proyecto'];
         
-        return (json_encode($proyectos_mdl->proyectos_por_usuario($session->id_usuario, $session->tipo_usuario, $id_proyecto)));
+        // Obtenemos los proyectos en los que esta asignado el usuario logeado
+        $array_proyectos_asignados = $usuarios_asignaciones_Mdl->usuarios_asignacion_proyectos($session->id_usuario);
+
+        return (json_encode($proyectos_mdl->proyectos_por_usuario($session->id_usuario, $session->tipo_usuario, $array_proyectos_asignados)));
     }
 
     public function datos_proyecto(){
@@ -83,7 +80,7 @@ class Proyectos extends BaseController
         $session = session();
         
         if($id == null){ return json_encode(array("status" => false)); }
-        if(count($grupos_Mdl->grupos_por_proyecto($id)) > 0){
+        if(count($grupos_Mdl->existen_grupos_por_proyecto($id)) > 0){
             return json_encode(array("status" => false));
         }
         
